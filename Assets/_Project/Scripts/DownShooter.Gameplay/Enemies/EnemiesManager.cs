@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Leaosoft;
 
@@ -8,7 +9,7 @@ namespace DownShooter.Gameplay.Enemies
         [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private int _enemiesAmount;
         
-        private Enemy _enemy;
+        private List<Enemy> _enemies = new List<Enemy>();
 
         protected override void OnInitialize()
         {
@@ -19,7 +20,23 @@ namespace DownShooter.Gameplay.Enemies
                 Enemy enemy = SpawnEnemy();
                 
                 RandomizeEnemyPosition(enemy);
+                
+                _enemies.Add(enemy);
             }
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                Enemy enemy = _enemies[i];
+
+                enemy.Stop();
+            }
+            
+            _enemies.Clear();
         }
 
         private Enemy SpawnEnemy()
@@ -27,7 +44,7 @@ namespace DownShooter.Gameplay.Enemies
             Enemy enemy = Instantiate(_enemyPrefab, transform);
 
             enemy.Begin();
-
+            
             return enemy;
         }
 

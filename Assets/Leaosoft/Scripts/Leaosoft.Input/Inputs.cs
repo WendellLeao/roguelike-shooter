@@ -74,7 +74,7 @@ namespace Leaosoft.Input
                 {
                     ""name"": ""up"",
                     ""id"": ""b541351a-7da0-4344-84d7-34de93fe21b1"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -85,7 +85,7 @@ namespace Leaosoft.Input
                 {
                     ""name"": ""down"",
                     ""id"": ""a5839a1c-13b5-46ba-98dd-6d021471fa67"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -96,7 +96,7 @@ namespace Leaosoft.Input
                 {
                     ""name"": ""left"",
                     ""id"": ""e8a69578-742c-4930-aa02-bbf2ff04197b"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -107,7 +107,7 @@ namespace Leaosoft.Input
                 {
                     ""name"": ""right"",
                     ""id"": ""fcc4525f-0df0-444a-92c8-87a10c1ea779"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
