@@ -1,3 +1,4 @@
+using DownShooter.Gameplay.Weapons;
 using Leaosoft.Services;
 using Leaosoft.Input;
 using UnityEngine;
@@ -7,8 +8,12 @@ namespace DownShooter.Gameplay.Playing
 {
     public sealed class Character : Entity
     {
+        [Header("Components")]
         [SerializeField] private CharacterMovement _movement;
-        [SerializeField] private CharacterRotation _rotation;
+        [SerializeField] private CharacterShoot _shoot;
+
+        [Header("Objects")] 
+        [SerializeField] private Weapon _currentWeapon;
         
         protected override void OnBegin()
         {
@@ -16,24 +21,27 @@ namespace DownShooter.Gameplay.Playing
 
             IInputService inputService = ServiceLocator.GetService<IInputService>();
             
+            _currentWeapon.Begin();
+            
             _movement.Begin(inputService);
-            _rotation.Begin();
+            _shoot.Begin(inputService, _currentWeapon);
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             
+            _currentWeapon.Stop();
+
             _movement.Stop();
-            _rotation.Stop();
+            _shoot.Stop();
         }
 
         protected override void OnTick(float deltaTime)
         {
             base.OnTick(deltaTime);
             
-            _movement.Tick(deltaTime);
-            _rotation.Tick(deltaTime);
+            _shoot.Tick(deltaTime);
         }
 
         protected override void OnFixedTick(float fixedDeltaTime)

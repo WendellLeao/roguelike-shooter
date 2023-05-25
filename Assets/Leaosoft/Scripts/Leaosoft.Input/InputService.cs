@@ -22,6 +22,7 @@ namespace Leaosoft.Input
 
         [Header("Inputs")] 
         private Vector2 _movement;
+        private Vector2 _shoot;
         private bool _pressJump;
 
         public void RegisterService()
@@ -69,6 +70,8 @@ namespace Leaosoft.Input
         {
             _landActions.Movement.performed += SetPlayerMovement;
 
+            _landActions.Shoot.performed += SetPlayerShoot;
+
             _landActions.Jump.performed += HandlePressJump;
             _landActions.Jump.canceled += HandlePressJump;
         }
@@ -77,6 +80,8 @@ namespace Leaosoft.Input
         {
             _landActions.Movement.performed -= SetPlayerMovement;
             
+            _landActions.Shoot.performed -= SetPlayerShoot;
+            
             _landActions.Jump.performed -= HandlePressJump;
             _landActions.Jump.canceled -= HandlePressJump;
         }
@@ -84,6 +89,7 @@ namespace Leaosoft.Input
         private void UpdateInputsData()
         {
             _inputsData.Movement = _movement;
+            _inputsData.Shoot = _shoot;
             
             _inputsData.PressJump = _pressJump;
         }
@@ -95,6 +101,8 @@ namespace Leaosoft.Input
         
         private void ResetInputs()
         {
+            _shoot = Vector2.zero;
+            
             _pressJump = false;
         }
 
@@ -120,6 +128,11 @@ namespace Leaosoft.Input
         private void SetPlayerMovement(InputAction.CallbackContext action)
         {
             _movement = action.ReadValue<Vector2>();
+        }
+        
+        private void SetPlayerShoot(InputAction.CallbackContext action)
+        {
+            _shoot = action.ReadValue<Vector2>();
         }
     }
 }

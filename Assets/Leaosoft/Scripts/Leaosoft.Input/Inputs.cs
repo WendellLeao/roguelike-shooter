@@ -39,6 +39,15 @@ namespace Leaosoft.Input
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Value"",
+                    ""id"": ""9078cbb9-1bd0-4a48-b493-e03421ad0b99"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""30574364-bfc9-41a8-85d8-3eef3371c225"",
@@ -114,6 +123,61 @@ namespace Leaosoft.Input
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""c272d65e-9485-40d3-9f7f-483c9bbec51e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""78362035-5f86-4d31-8338-832c15fa29b7"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""b8a21752-b13b-40f6-b458-69e51b5b5b64"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""44bb4385-30c2-4958-bfb8-792913a4fef0"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""eacf65d0-8108-4742-8f8f-75ef3f8b5148"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -123,6 +187,7 @@ namespace Leaosoft.Input
             // LandMap
             m_LandMap = asset.FindActionMap("LandMap", throwIfNotFound: true);
             m_LandMap_Movement = m_LandMap.FindAction("Movement", throwIfNotFound: true);
+            m_LandMap_Shoot = m_LandMap.FindAction("Shoot", throwIfNotFound: true);
             m_LandMap_Jump = m_LandMap.FindAction("Jump", throwIfNotFound: true);
         }
 
@@ -186,12 +251,14 @@ namespace Leaosoft.Input
         private readonly InputActionMap m_LandMap;
         private List<ILandMapActions> m_LandMapActionsCallbackInterfaces = new List<ILandMapActions>();
         private readonly InputAction m_LandMap_Movement;
+        private readonly InputAction m_LandMap_Shoot;
         private readonly InputAction m_LandMap_Jump;
         public struct LandMapActions
         {
             private @Inputs m_Wrapper;
             public LandMapActions(@Inputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_LandMap_Movement;
+            public InputAction @Shoot => m_Wrapper.m_LandMap_Shoot;
             public InputAction @Jump => m_Wrapper.m_LandMap_Jump;
             public InputActionMap Get() { return m_Wrapper.m_LandMap; }
             public void Enable() { Get().Enable(); }
@@ -205,6 +272,9 @@ namespace Leaosoft.Input
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -215,6 +285,9 @@ namespace Leaosoft.Input
                 @Movement.started -= instance.OnMovement;
                 @Movement.performed -= instance.OnMovement;
                 @Movement.canceled -= instance.OnMovement;
+                @Shoot.started -= instance.OnShoot;
+                @Shoot.performed -= instance.OnShoot;
+                @Shoot.canceled -= instance.OnShoot;
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
@@ -238,6 +311,7 @@ namespace Leaosoft.Input
         public interface ILandMapActions
         {
             void OnMovement(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
         }
     }
