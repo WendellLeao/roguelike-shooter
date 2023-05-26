@@ -55,26 +55,28 @@ namespace DownShooter.Gameplay.Playing
         
         private void HandleCharacterOrientation(Vector2 normalizedMovement)
         {
-            Quaternion newOrientation = transform.rotation;
-            
             if (normalizedMovement == Vector2.up)
             {
-                newOrientation = Quaternion.Euler(0, 0, 0f);
+                transform.rotation = Quaternion.Euler(0, 0, 0f);
+                return;
             }
-            else if (normalizedMovement == Vector2.down)
+            
+            if (normalizedMovement == Vector2.down)
             {
-                newOrientation = Quaternion.Euler(0, 0, 180f);
+                transform.rotation = Quaternion.Euler(0, 0, 180f);
+                return;
             }
-            else if (normalizedMovement == Vector2.left)
+            
+            if (normalizedMovement == Vector2.left)
             {
-                newOrientation = Quaternion.Euler(0, 0, 90f);
+                transform.rotation = Quaternion.Euler(0, 0, 90f);
+                return;
             }
-            else if (normalizedMovement == Vector2.right)
+            
+            if (normalizedMovement == Vector2.right)
             {
-                newOrientation = Quaternion.Euler(0, 0, -90f);
+                transform.rotation = Quaternion.Euler(0, 0, -90f);
             }
-
-            transform.rotation = newOrientation;
         }
     }
 }

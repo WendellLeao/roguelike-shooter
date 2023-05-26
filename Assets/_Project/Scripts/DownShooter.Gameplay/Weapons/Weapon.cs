@@ -7,12 +7,13 @@ namespace DownShooter.Gameplay.Weapons
     public sealed class Weapon : Entity, ICanShoot
     {
         [SerializeField] private Projectile _projectilePrefab;
+        [SerializeField] private Transform _spawnPoint;
         
         public void Shoot(ProjectileDirection projectileDirection)
         {
-            Debug.Log("Shoot direction: " + projectileDirection);
+            Projectile projectile = Instantiate(_projectilePrefab);
 
-            Projectile projectile = Instantiate(_projectilePrefab, transform);
+            projectile.transform.position = _spawnPoint.position;
 
             projectile.AddForceTowards(projectileDirection);
         }

@@ -9,6 +9,7 @@ namespace DownShooter.Gameplay.Playing
     public sealed class CharacterManager : Manager
     {
         [SerializeField] private Character _characterPrefab;
+        [SerializeField] private Transform _spawnPoint;
         
         private IEventService _eventService;
         private Character _character;
@@ -60,6 +61,8 @@ namespace DownShooter.Gameplay.Playing
         private void SpawnCharacter()
         {
             _character = Instantiate(_characterPrefab, transform);
+
+            _character.transform.position = _spawnPoint.position;
 
             _character.Begin();
         }

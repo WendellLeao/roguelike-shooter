@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4934546278619175635}
   - component: {fileID: 8703830996341501429}
-  - component: {fileID: -18192755258903276}
+  - component: {fileID: 975336890780577550}
   - component: {fileID: 5605213810510594082}
   - component: {fileID: 8268976762974098000}
   - component: {fileID: 3341522624302848713}
@@ -138,13 +138,13 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a84a369c71e1e6146a815eb09826e41a, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!58 &-18192755258903276
-CircleCollider2D:
+  m_Constraints: 4
+--- !u!61 &975336890780577550
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -156,9 +156,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.000000014901161, y: 0.0061119795}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Size: {x: 0.69440186, y: 0.694402}
+  m_EdgeRadius: 0
 --- !u!114 &5605213810510594082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 4934546279800500119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4934546278210736312}
@@ -273,9 +283,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.7735849, g: 0.054734774, b: 0.054734774, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -302,11 +312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948172390231107592, guid: d49a8b6e6f43d834f8615b1b87289520, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1948172390231107592, guid: d49a8b6e6f43d834f8615b1b87289520, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1948172390231107592, guid: d49a8b6e6f43d834f8615b1b87289520, type: 3}
       propertyPath: m_LocalPosition.z
