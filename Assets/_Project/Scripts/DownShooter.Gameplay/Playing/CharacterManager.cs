@@ -1,3 +1,6 @@
+using DownShooter.Gameplay.Maps;
+using Leaosoft.Services;
+using Leaosoft.Events;
 using UnityEngine;
 using Leaosoft;
 
@@ -7,20 +10,25 @@ namespace DownShooter.Gameplay.Playing
     {
         [SerializeField] private Character _characterPrefab;
         
+        private IEventService _eventService;
         private Character _character;
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            _character = Instantiate(_characterPrefab);
+            _eventService = ServiceLocator.GetService<IEventService>();
             
-            _character.Begin();
+            _eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
+            
+            SpawnCharacter();
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
+            
+            _eventService.RemoveEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
             
             _character.Stop();
         }
@@ -37,6 +45,30 @@ namespace DownShooter.Gameplay.Playing
             base.OnFixedTick(fixedDeltaTime);
 
             _character.FixedTick(fixedDeltaTime);
+        }
+        
+        private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
+        {
+            if (serviceEvent is CharacterCollideDoorEvent)
+            {
+                DestroyCharacter();
+
+                SpawnCharacter();
+            }
+        }
+        
+        private void SpawnCharacter()
+        {
+            _character = Instantiate(_characterPrefab, transform);
+
+            _character.Begin();
+        }
+        
+        private void DestroyCharacter()
+        {
+            _character.Stop();
+
+            Destroy(_character.gameObject);
         }
     }
 }

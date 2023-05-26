@@ -1,5 +1,5 @@
 using Leaosoft.Services;
-using Leaosoft.Input;
+using Leaosoft.Events;
 using UnityEngine;
 using Leaosoft;
 
@@ -15,26 +15,26 @@ namespace DownShooter.Gameplay.Maps
         [Header("Layouts")]
         [SerializeField] private MapLayout[] _mapLayouts;
 
+        private IEventService _eventService;
         private MapLayout _currentMap;
+        private int _lastRandomIndex;
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
+
+            _eventService = ServiceLocator.GetService<IEventService>();
+            
+            _eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
             
             SpawnMap(_mapLayoutLobby);
+        }
 
-            //DEBUG
-            IInputService inputService = ServiceLocator.GetService<IInputService>();
-
-            inputService.OnReadInputs += HandleReadInputs;
+        protected override void OnDispose()
+        {
+            base.OnDispose();
             
-            void HandleReadInputs(InputsData obj)
-            {
-                if (obj.PressJump)
-                {
-                    HandleCharacterCollideDoor();
-                }
-            }
+            _eventService.RemoveEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
         }
 
         private void SpawnMap(MapLayout map)
@@ -46,30 +46,33 @@ namespace DownShooter.Gameplay.Maps
             
             _currentMap = Instantiate(map, _gridTransform);
 
-            _currentMap.OnCharacterCollideDoor += HandleCharacterCollideDoor;
+            _currentMap.Begin();
         }
 
         private void DestroyCurrentMap()
         {
-            _currentMap.OnCharacterCollideDoor -= HandleCharacterCollideDoor;
-                
+            _currentMap.Stop();
+            
             Destroy(_currentMap.gameObject);
 
             _currentMap = null;
         }
         
-        private void HandleCharacterCollideDoor()
+        private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
         {
-            MapLayout randomMap = GetRandomMap();
-            
-            SpawnMap(randomMap);
+            if (serviceEvent is CharacterCollideDoorEvent)
+            {
+                MapLayout randomMap = GetRandomMap();
+                
+                SpawnMap(randomMap);
+            }
         }
 
         private MapLayout GetRandomMap()
         {
-            int randomIndex = Random.Range(0, _mapLayouts.Length);
-
-            MapLayout randomMap = _mapLayouts[randomIndex];
+            _lastRandomIndex = Random.Range(0, _mapLayouts.Length);
+            
+            MapLayout randomMap = _mapLayouts[_lastRandomIndex];
 
             return randomMap;
         }

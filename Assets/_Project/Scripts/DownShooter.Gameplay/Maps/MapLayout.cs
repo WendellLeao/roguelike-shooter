@@ -1,19 +1,24 @@
-﻿using DownShooter.Gameplay.Playing;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
+using Leaosoft;
 
 namespace DownShooter.Gameplay.Maps
 {
-    public sealed class MapLayout : MonoBehaviour
+    public sealed class MapLayout : Entity
     {
-        public event Action OnCharacterCollideDoor;
-        
-        private void OnCollisionEnter2D(Collision2D collision)
+        [SerializeField] private Doors _doors;
+
+        protected override void OnBegin()
         {
-            if (collision.collider.TryGetComponent(out Character character))
-            {
-                OnCharacterCollideDoor?.Invoke();
-            }
+            base.OnBegin();
+            
+            _doors.Begin();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            _doors.Stop();
         }
     }
 }

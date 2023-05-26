@@ -42,6 +42,8 @@ namespace DownShooter.Gameplay.Playing
             float verticalMovement = _movement.y;
 
             Vector2 normalizedMovement = new Vector2(horizontalMovement, verticalMovement).normalized;
+
+            HandleCharacterOrientation(normalizedMovement);
             
             _rigidbody.velocity = normalizedMovement * _movementSpeed;
         }
@@ -49,6 +51,30 @@ namespace DownShooter.Gameplay.Playing
         private void HandleReadInputs(InputsData inputsData)
         {
             _movement = inputsData.Movement;
+        }
+        
+        private void HandleCharacterOrientation(Vector2 normalizedMovement)
+        {
+            Quaternion newOrientation = transform.rotation;
+            
+            if (normalizedMovement == Vector2.up)
+            {
+                newOrientation = Quaternion.Euler(0, 0, 0f);
+            }
+            else if (normalizedMovement == Vector2.down)
+            {
+                newOrientation = Quaternion.Euler(0, 0, 180f);
+            }
+            else if (normalizedMovement == Vector2.left)
+            {
+                newOrientation = Quaternion.Euler(0, 0, 90f);
+            }
+            else if (normalizedMovement == Vector2.right)
+            {
+                newOrientation = Quaternion.Euler(0, 0, -90f);
+            }
+
+            transform.rotation = newOrientation;
         }
     }
 }
