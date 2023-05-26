@@ -1,5 +1,6 @@
 using DownShooter.Gameplay.Playing;
 using DownShooter.Gameplay.Enemies;
+using DownShooter.Gameplay.Maps;
 using UnityEngine;
 
 namespace DownShooter.Gameplay
@@ -8,6 +9,7 @@ namespace DownShooter.Gameplay
     {
         [SerializeField] private CharacterManager _characterManager;
         [SerializeField] private EnemiesManager _enemiesManager;
+        [SerializeField] private MapsManager _mapsManager;
         
         protected override void OnInitialize()
         {
@@ -15,6 +17,7 @@ namespace DownShooter.Gameplay
 
             _characterManager.Initialize();
             _enemiesManager.Initialize();
+            _mapsManager.Initialize();
         }
 
         protected override void OnDispose()
@@ -23,6 +26,7 @@ namespace DownShooter.Gameplay
             
             _characterManager.Dispose();
             _enemiesManager.Dispose();
+            _mapsManager.Dispose();
         }
 
         protected override void OnTick(float deltaTime)
