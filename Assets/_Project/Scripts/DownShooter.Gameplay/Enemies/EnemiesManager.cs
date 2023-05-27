@@ -11,13 +11,15 @@ namespace DownShooter.Gameplay.Enemies
     {
         [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private int _enemiesAmount;
-        
-        private List<Enemy> _enemies = new List<Enemy>();
+
+        private List<Enemy> _enemies;
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
+            _enemies = new List<Enemy>();
+            
             IEventService eventService = ServiceLocator.GetService<IEventService>();
             
             eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
@@ -92,7 +94,7 @@ namespace DownShooter.Gameplay.Enemies
             
             enemy.Stop();
                 
-            Destroy(enemy.gameObject);
+            Destroy(enemy.gameObject);//TODO: Implement pooling
         }
 
         private void HandleEnemyDead(Enemy enemy)

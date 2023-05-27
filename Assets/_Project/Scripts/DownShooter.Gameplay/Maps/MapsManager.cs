@@ -53,7 +53,7 @@ namespace DownShooter.Gameplay.Maps
         {
             _currentMap.Stop();
             
-            Destroy(_currentMap.gameObject);
+            Destroy(_currentMap.gameObject);//TODO: Implement pooling
 
             _currentMap = null;
         }

@@ -82,7 +82,7 @@ namespace DownShooter.Gameplay.Playing
             
             _character.Stop();
 
-            Destroy(_character.gameObject);
+            Destroy(_character.gameObject);//TODO: implement pooling
         }
     }
 }

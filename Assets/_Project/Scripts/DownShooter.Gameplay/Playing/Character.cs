@@ -26,6 +26,8 @@ namespace DownShooter.Gameplay.Playing
             
             _movement.Begin(inputService);
             _shoot.Begin(inputService, _currentWeapon);
+            
+            _healthController.Begin();
         }
 
         protected override void OnStop()
@@ -34,6 +36,8 @@ namespace DownShooter.Gameplay.Playing
             
             _movement.Stop();
             _shoot.Stop();
+            
+            _healthController.Stop();
         }
 
         protected override void OnTick(float deltaTime)

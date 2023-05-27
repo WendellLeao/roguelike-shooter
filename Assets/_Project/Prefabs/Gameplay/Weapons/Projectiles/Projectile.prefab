@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5879062220491407100}
   - component: {fileID: 5879062220491407099}
+  - component: {fileID: 8286158552353674057}
   m_Layer: 0
   m_Name: Projectile_View
   m_TagString: Untagged
@@ -84,6 +85,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8286158552353674057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879062220491407101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22413c8102ca4ee698e50f2e3901a79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particlesPrefab: {fileID: 94683652309828523, guid: 5a8f3c1e3ebab4741a6bc478b48ddedf, type: 3}
 --- !u!1 &5879062220814613716
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +110,7 @@ GameObject:
   - component: {fileID: 802499676108455353}
   - component: {fileID: 9141413232228103516}
   - component: {fileID: 5879062220814613715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +169,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.1
 --- !u!114 &5879062220814613715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,5 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 802499676108455353}
+  _projectileView: {fileID: 8286158552353674057}
   _force: 500
-  _damage: 30
+  _damage: 40

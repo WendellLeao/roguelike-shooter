@@ -5,71 +5,107 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
 {
     public sealed class Projectile : Entity
     {
+        [Header("Objects")]
         [SerializeField] private Rigidbody2D _rigidbody;
+        [SerializeField] private ProjectileView _projectileView;
+        
+        [Header("Settings")]
         [SerializeField] private float _force;
         [SerializeField] private int _damage;
 
         private ICanShoot _currentOwner;
-        private bool _hasHitSomething;
+        private bool _hasOwner;
 
         public void Begin(ICanShoot owner)
         {
             _currentOwner = owner;
+            _hasOwner = _currentOwner != null;
             
             Begin();
         }
-        
+
+        protected override void OnBegin()
+        {
+            base.OnBegin();
+            
+            _projectileView.Setup();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            _projectileView.Dispose();
+
+            _currentOwner = null;
+            _hasOwner = false;
+        }
+
         public void AddForceTowards(ProjectileDirection projectileDirection)
+        {
+            Vector2 forceDirection = GetForceDirection(projectileDirection);
+            
+            _rigidbody.AddForce(forceDirection * _force);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (!ShouldCollideWith(col))
+            {
+                return;
+            }
+            
+            _rigidbody.AddForce(Vector2.zero);
+            
+            if (col.transform.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage(_damage);
+            }
+
+            _projectileView.SpawnDestructionParticles();
+            
+            Destroy(gameObject);
+        }
+
+        private bool ShouldCollideWith(Collider2D col)
+        {
+            if (!IsEnabled)
+            {
+                return false;
+            }
+            
+            //If the projectile has collided with its owner.
+            if (_hasOwner && col.transform == _currentOwner.GetTransform())
+            {
+                return false;
+            }
+            
+            return true;
+        }
+        
+        private Vector2 GetForceDirection(ProjectileDirection projectileDirection)
         {
             switch (projectileDirection)
             {
                 case ProjectileDirection.Up:
                 {
-                    _rigidbody.AddForce(Vector2.up * _force);
-                    
-                    break;
+                    return Vector2.up;
                 }
                 case ProjectileDirection.Down:
                 {
-                    _rigidbody.AddForce(Vector2.down * _force);
-                    
-                    break;
+                    return Vector2.down;
                 }
                 case ProjectileDirection.Left:
                 {
-                    _rigidbody.AddForce(Vector2.left * _force);
-                    
-                    break;
+                    return Vector2.left;
                 }
                 case ProjectileDirection.Right:
                 {
-                    _rigidbody.AddForce(Vector2.right * _force);
-                    
-                    break;
+                    return Vector2.right;
                 }
             }
-        }
 
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            if (_hasHitSomething)
-            {
-                return;
-            }
-
-            if (_currentOwner.GetTransform() != null && col.transform == _currentOwner.GetTransform())//TODO: Clean this
-            {
-                return;
-            }
-            
-            _hasHitSomething = true;
-            
-            if (col.transform.TryGetComponent(out IDamageable damageable))
-            {
-                Debug.Log("hit DAMAGEABLE");
-                
-                damageable.TakeDamage(_damage);
-            }
+            return Vector2.up;
         }
     }
 }
