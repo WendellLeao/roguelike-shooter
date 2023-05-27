@@ -15,8 +15,8 @@ namespace DownShooter.Gameplay
         {
             base.OnInitialize();
 
-            _characterManager.Initialize();
             _enemiesManager.Initialize();
+            _characterManager.Initialize();
             _mapsManager.Initialize();
         }
 
@@ -24,8 +24,8 @@ namespace DownShooter.Gameplay
         {
             base.OnDispose();
             
-            _characterManager.Dispose();
             _enemiesManager.Dispose();
+            _characterManager.Dispose();
             _mapsManager.Dispose();
         }
 
@@ -33,16 +33,16 @@ namespace DownShooter.Gameplay
         {
             base.OnTick(deltaTime);
             
-            _characterManager.Tick(deltaTime);
             _enemiesManager.Tick(deltaTime);
+            _characterManager.Tick(deltaTime);
         }
 
         protected override void OnFixedTick(float fixedDeltaTime)
         {
             base.OnFixedTick(fixedDeltaTime);
             
-            _characterManager.FixedTick(fixedDeltaTime);
             _enemiesManager.FixedTick(fixedDeltaTime);
+            _characterManager.FixedTick(fixedDeltaTime);
         }
     }
 }

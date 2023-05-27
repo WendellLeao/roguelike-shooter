@@ -67,6 +67,8 @@ namespace DownShooter.Gameplay.Playing
             _character.HealthController.OnDead += HandleCharacterDead;
             
             _character.Begin();
+            
+            _eventService.DispatchEvent(new CharacterSpawnedEvent(_character));
         }
 
         private void HandleCharacterDead()

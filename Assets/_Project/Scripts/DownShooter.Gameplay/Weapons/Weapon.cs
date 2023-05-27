@@ -32,7 +32,7 @@ namespace DownShooter.Gameplay.Weapons
 
             projectile.OnCollided += HandleProjectileCollided;
 
-            projectile.transform.position = _spawnPoint.position;
+            projectile.transform.localPosition = _spawnPoint.position;
             
             projectile.Begin(_currentOwner);
 

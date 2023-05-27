@@ -1,3 +1,4 @@
+using DownShooter.Gameplay.Playing;
 using System.Collections.Generic;
 using DownShooter.Gameplay.Maps;
 using Leaosoft.Services;
@@ -12,7 +13,10 @@ namespace DownShooter.Gameplay.Enemies
         [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private int _enemiesAmount;
 
+        private IEventService _eventService;
         private List<Enemy> _enemies;
+        private Character _character;
+        private Transform _characterTransform;
 
         protected override void OnInitialize()
         {
@@ -20,18 +24,44 @@ namespace DownShooter.Gameplay.Enemies
 
             _enemies = new List<Enemy>();
             
-            IEventService eventService = ServiceLocator.GetService<IEventService>();
+            _eventService = ServiceLocator.GetService<IEventService>();
             
-            eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
-            
-            SpawnEnemiesAndRandomizePosition();
+            _eventService.AddEventListener<CharacterSpawnedEvent>(HandleCharacterSpawned);
+            _eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
 
+            _eventService.RemoveEventListener<CharacterSpawnedEvent>(HandleCharacterSpawned);
+            _eventService.RemoveEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
+            
             DestroyEnemies();
+        }
+
+        protected override void OnTick(float deltaTime)
+        {
+            base.OnTick(deltaTime);
+
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                Enemy enemy = _enemies[i];
+                
+                enemy.Tick(deltaTime);
+            }
+        }
+
+        private void HandleCharacterSpawned(ServiceEvent serviceEvent)
+        {
+            if (serviceEvent is CharacterSpawnedEvent characterSpawnedEvent)
+            {
+                Character character = characterSpawnedEvent.Character;
+
+                _characterTransform = character.transform;
+                
+                SpawnEnemiesAndRandomizePosition();
+            }
         }
         
         private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
@@ -50,16 +80,14 @@ namespace DownShooter.Gameplay.Enemies
             {
                 Enemy enemy = SpawnEnemy();
 
-                enemy.OnEnemyDead += HandleEnemyDead;
-            
                 RandomizeEnemyPosition(enemy);
                 
-                enemy.Begin();
+                BeginEnemy(enemy);
 
                 _enemies.Add(enemy);
             }
         }
-
+        
         private void DestroyEnemies()
         {
             Enemy[] enemiesToDestroy = new Enemy[_enemies.Count];
@@ -85,6 +113,13 @@ namespace DownShooter.Gameplay.Enemies
 
             return enemy;
         }
+        
+        private void BeginEnemy(Enemy enemy)
+        {
+            enemy.OnEnemyDead += HandleEnemyDead;
+
+            enemy.Begin(_characterTransform);
+        }
 
         private void DestroyEnemy(Enemy enemy)
         {
@@ -106,7 +141,7 @@ namespace DownShooter.Gameplay.Enemies
         {
             Vector3 initialPosition = new Vector3(GetRandomValue(), GetRandomValue(), 0f);
 
-            enemy.transform.position = initialPosition;
+            enemy.transform.localPosition = initialPosition;
         }
 
         private float GetRandomValue()//TODO: implement this
