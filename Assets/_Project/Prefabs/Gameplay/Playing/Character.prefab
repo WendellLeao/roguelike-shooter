@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 5605213810510594082}
   - component: {fileID: 8268976762974098000}
   - component: {fileID: 3341522624302848713}
+  - component: {fileID: 7587615205174680251}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -183,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movement: {fileID: 8268976762974098000}
   _shoot: {fileID: 3341522624302848713}
+  _healthController: {fileID: 7587615205174680251}
   _currentWeapon: {fileID: 6869105412768419939}
 --- !u!114 &8268976762974098000
 MonoBehaviour:
@@ -210,6 +212,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8896332aa384a9bb0dd6e2ebdea80c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7587615205174680251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934546278619175632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003b6732c5f44aabac6e8d6aefa3cbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maximumHealth: 100
 --- !u!1 &4934546279800500119
 GameObject:
   m_ObjectHideFlags: 0

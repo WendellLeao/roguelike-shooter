@@ -25,7 +25,7 @@ namespace DownShooter.Gameplay.Maps
                 return;
             }
             
-            if (col.TryGetComponent(out Character character))
+            if (col.transform.TryGetComponent(out Character character))
             {
                 Debug.Log("Character collide");
 

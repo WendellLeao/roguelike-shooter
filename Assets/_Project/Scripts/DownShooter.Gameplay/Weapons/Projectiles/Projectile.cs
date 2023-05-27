@@ -7,6 +7,17 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
     {
         [SerializeField] private Rigidbody2D _rigidbody;
         [SerializeField] private float _force;
+        [SerializeField] private int _damage;
+
+        private Entity _currentOwner;
+        private bool _hasHitSomething;
+
+        public void Begin(Entity owner)
+        {
+            _currentOwner = owner;
+            
+            Begin();
+        }
         
         public void AddForceTowards(ProjectileDirection projectileDirection)
         {
@@ -36,6 +47,28 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
                     
                     break;
                 }
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (_hasHitSomething)
+            {
+                return;
+            }
+
+            if (_currentOwner.transform != null && col.transform == _currentOwner.transform)//TODO: Clean this
+            {
+                return;
+            }
+            
+            _hasHitSomething = true;
+            
+            if (col.transform.TryGetComponent(out IDamageable damageable))
+            {
+                Debug.Log("hit DAMAGEABLE");
+                
+                damageable.TakeDamage(_damage);
             }
         }
     }

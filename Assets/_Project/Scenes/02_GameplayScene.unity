@@ -274,7 +274,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.7
+  orthographic size: 4.85
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 4125543911146708846, guid: c074fa742e766114dbc841f814dbf8f3, type: 3}
-  _enemiesAmount: 0
+  _enemiesAmount: 5
 --- !u!1 &1725545824
 GameObject:
   m_ObjectHideFlags: 0

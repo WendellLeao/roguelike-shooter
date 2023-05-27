@@ -64,11 +64,22 @@ namespace DownShooter.Gameplay.Playing
 
             _character.transform.position = _spawnPoint.position;
 
+            _character.HealthController.OnDead += HandleCharacterDead;
+            
             _character.Begin();
         }
-        
+
+        private void HandleCharacterDead()
+        {
+            DestroyCharacter();
+            
+            SpawnCharacter();
+        }
+
         private void DestroyCharacter()
         {
+            _character.HealthController.OnDead -= HandleCharacterDead;
+            
             _character.Stop();
 
             Destroy(_character.gameObject);

@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using DownShooter.Gameplay.Maps;
+using Leaosoft.Services;
+using Leaosoft.Events;
 using UnityEngine;
 using Leaosoft;
 
@@ -15,27 +18,58 @@ namespace DownShooter.Gameplay.Enemies
         {
             base.OnInitialize();
 
-            for (int i = 0; i < _enemiesAmount; i++)
-            {
-                Enemy enemy = SpawnEnemy();
-                
-                RandomizeEnemyPosition(enemy);
-                
-                _enemies.Add(enemy);
-            }
+            IEventService eventService = ServiceLocator.GetService<IEventService>();
+            
+            eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
+            
+            SpawnEnemiesAndRandomizePosition();
         }
 
         protected override void OnDispose()
         {
             base.OnDispose();
 
-            for (int i = 0; i < _enemies.Count; i++)
+            DestroyEnemies();
+        }
+        
+        private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
+        {
+            if (serviceEvent is CharacterCollideDoorEvent)
             {
-                Enemy enemy = _enemies[i];
+                DestroyEnemies();
+            
+                SpawnEnemiesAndRandomizePosition();
+            }
+        }
+        
+        private void SpawnEnemiesAndRandomizePosition()
+        {
+            for (int i = 0; i < _enemiesAmount; i++)
+            {
+                Enemy enemy = SpawnEnemy();
 
-                enemy.Stop();
+                RandomizeEnemyPosition(enemy);
+
+                _enemies.Add(enemy);
+            }
+        }
+
+        private void DestroyEnemies()
+        {
+            Enemy[] enemiesToDestroy = new Enemy[_enemies.Count];
+            
+            for (int i = 0; i < enemiesToDestroy.Length; i++)
+            {
+                enemiesToDestroy[i] = _enemies[i];
             }
             
+            for (int i = 0; i < enemiesToDestroy.Length; i++)
+            {
+                Enemy enemy = enemiesToDestroy[i];
+
+                DestroyEnemy(enemy);
+            }
+
             _enemies.Clear();
         }
 
@@ -43,9 +77,27 @@ namespace DownShooter.Gameplay.Enemies
         {
             Enemy enemy = Instantiate(_enemyPrefab, transform);
 
+            enemy.OnEnemyDead += HandleEnemyDead;
+            
             enemy.Begin();
             
             return enemy;
+        }
+
+        private void DestroyEnemy(Enemy enemy)
+        {
+            _enemies.Remove(enemy);
+            
+            enemy.OnEnemyDead -= HandleEnemyDead;
+            
+            enemy.Stop();
+                
+            Destroy(enemy.gameObject);
+        }
+
+        private void HandleEnemyDead(Enemy enemy)
+        {
+            DestroyEnemy(enemy);
         }
 
         private void RandomizeEnemyPosition(Enemy enemy)
@@ -55,7 +107,7 @@ namespace DownShooter.Gameplay.Enemies
             enemy.transform.position = initialPosition;
         }
 
-        private float GetRandomValue()
+        private float GetRandomValue()//TODO: implement this
         {
             float minimumValue = -4f;
             float maximumValue = 4f;
