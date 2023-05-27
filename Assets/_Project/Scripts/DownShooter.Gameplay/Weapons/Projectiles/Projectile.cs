@@ -9,10 +9,10 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
         [SerializeField] private float _force;
         [SerializeField] private int _damage;
 
-        private Entity _currentOwner;
+        private ICanShoot _currentOwner;
         private bool _hasHitSomething;
 
-        public void Begin(Entity owner)
+        public void Begin(ICanShoot owner)
         {
             _currentOwner = owner;
             
@@ -57,7 +57,7 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
                 return;
             }
 
-            if (_currentOwner.transform != null && col.transform == _currentOwner.transform)//TODO: Clean this
+            if (_currentOwner.GetTransform() != null && col.transform == _currentOwner.GetTransform())//TODO: Clean this
             {
                 return;
             }

@@ -24,8 +24,6 @@ namespace DownShooter.Gameplay.Playing
 
             IInputService inputService = ServiceLocator.GetService<IInputService>();
             
-            _currentWeapon.Begin(this);
-            
             _movement.Begin(inputService);
             _shoot.Begin(inputService, _currentWeapon);
         }
@@ -34,8 +32,6 @@ namespace DownShooter.Gameplay.Playing
         {
             base.OnStop();
             
-            _currentWeapon.Stop();
-
             _movement.Stop();
             _shoot.Stop();
         }

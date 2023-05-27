@@ -1,9 +1,12 @@
 using DownShooter.Gameplay.Weapons.Projectiles;
+using UnityEngine;
 
 namespace DownShooter.Gameplay
 {
     public interface ICanShoot
     {
-        public void Shoot(ProjectileDirection projectileDirection);
+        void Shoot(ProjectileDirection projectileDirection);
+
+        Transform GetTransform();
     }
 }

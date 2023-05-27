@@ -1,18 +1,19 @@
 ﻿using DownShooter.Gameplay.Weapons.Projectiles;
+using DownShooter.Gameplay.Weapons;
 using Leaosoft.Input;
 using UnityEngine;
 using Leaosoft;
 
 namespace DownShooter.Gameplay.Playing
 {
-    public sealed class CharacterShoot : EntityComponent
+    public sealed class CharacterShoot : EntityComponent, ICanShoot
     {
         private IInputService _inputService;
         
-        private ICanShoot _currentWeapon;
+        private Weapon _currentWeapon;
         private Vector2 _shoot;
 
-        public void Begin(IInputService inputService, ICanShoot weapon)
+        public void Begin(IInputService inputService, Weapon weapon)
         {
             _inputService = inputService;
             _currentWeapon = weapon;
@@ -25,6 +26,8 @@ namespace DownShooter.Gameplay.Playing
             base.OnBegin();
 
             _inputService.OnReadInputs += HandleReadInputs;
+            
+            _currentWeapon.Begin(owner: this);
         }
 
         protected override void OnStop()
@@ -32,6 +35,8 @@ namespace DownShooter.Gameplay.Playing
             base.OnStop();
             
             _inputService.OnReadInputs -= HandleReadInputs;
+            
+            _currentWeapon.Stop();
         }
 
         protected override void OnTick(float deltaTime)
@@ -42,9 +47,7 @@ namespace DownShooter.Gameplay.Playing
             {
                 ProjectileDirection projectileDirection = GetProjectileDirection(_shoot);
                 
-                _currentWeapon.Shoot(projectileDirection);
-                
-                _shoot = Vector2.zero;
+                Shoot(projectileDirection);
             }
         }
 
@@ -81,6 +84,18 @@ namespace DownShooter.Gameplay.Playing
             }
             
             return ProjectileDirection.Up;
+        }
+
+        public void Shoot(ProjectileDirection projectileDirection)
+        {
+            _currentWeapon.Shoot(projectileDirection);
+                
+            _shoot = Vector2.zero;
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
         }
     }
 }

@@ -4,14 +4,14 @@ using Leaosoft;
 
 namespace DownShooter.Gameplay.Weapons
 {
-    public sealed class Weapon : Entity, ICanShoot
+    public sealed class Weapon : Entity
     {
         [SerializeField] private Projectile _projectilePrefab;
         [SerializeField] private Transform _spawnPoint;
         
-        private Entity _currentOwner;
+        private ICanShoot _currentOwner;
 
-        public void Begin(Entity owner)
+        public void Begin(ICanShoot owner)
         {
             _currentOwner = owner;
             
