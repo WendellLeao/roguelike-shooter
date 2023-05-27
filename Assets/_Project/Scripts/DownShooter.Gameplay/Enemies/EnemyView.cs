@@ -14,7 +14,7 @@ namespace DownShooter.Gameplay.Enemies
 
         public void PlayHitAnimation()
         {
-            PlayHitAnimationAsync();
+            UniTask async = PlayHitAnimationAsync();
         }
         
         protected override void OnSetup()
@@ -30,7 +30,7 @@ namespace DownShooter.Gameplay.Enemies
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
 
-            if (_spriteRenderer != null)//TODO: clean this
+            if (IsEnabled)
             {
                 _spriteRenderer.color = _originalColor;
             }

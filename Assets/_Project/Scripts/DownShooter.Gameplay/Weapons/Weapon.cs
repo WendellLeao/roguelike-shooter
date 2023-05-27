@@ -1,5 +1,7 @@
 using DownShooter.Gameplay.Weapons.Projectiles;
 using System.Collections.Generic;
+using Leaosoft.Services;
+using Leaosoft.Pooling;
 using UnityEngine;
 using Leaosoft;
 
@@ -7,11 +9,15 @@ namespace DownShooter.Gameplay.Weapons
 {
     public sealed class Weapon : Entity
     {
-        [SerializeField] private Projectile _projectilePrefab;
+        [Header("Objects")]
+        [SerializeField] private PoolData _projectilesPool;
         [SerializeField] private Transform _spawnPoint;
-
+        
         private List<Projectile> _activeProjectiles;
+        private IPoolingService _poolingService;
         private ICanShoot _currentOwner;
+
+        private string ProjectilesPool => _projectilesPool.Id;
 
         public void Begin(ICanShoot owner)
         {
@@ -22,11 +28,13 @@ namespace DownShooter.Gameplay.Weapons
 
         public void Shoot(ProjectileDirection projectileDirection)
         {
-            Projectile projectile = Instantiate(_projectilePrefab);
+            Projectile projectile = GetProjectileFromPool();
 
-            projectile.Begin(_currentOwner);
-            
+            projectile.OnCollided += HandleProjectileCollided;
+
             projectile.transform.position = _spawnPoint.position;
+            
+            projectile.Begin(_currentOwner);
 
             projectile.AddForceTowards(projectileDirection);
         }
@@ -36,16 +44,30 @@ namespace DownShooter.Gameplay.Weapons
             base.OnBegin();
 
             _activeProjectiles = new List<Projectile>();
+            
+            _poolingService = ServiceLocator.GetService<IPoolingService>();
         }
 
         protected override void OnStop()
         {
             base.OnStop();
 
-            DestroyActiveProjectiles();
+            StopActiveProjectiles();
         }
 
-        private void DestroyActiveProjectiles()
+        private void HandleProjectileCollided(Projectile projectile)
+        {
+            StopProjectile(projectile);
+        }
+
+        private void StopProjectile(Projectile projectile)
+        {
+            projectile.OnCollided -= HandleProjectileCollided;
+            
+            projectile.Stop(ProjectilesPool);
+        }
+        
+        private void StopActiveProjectiles()
         {
             Projectile[] projectilesToDestroy = new Projectile[_activeProjectiles.Count];
 
@@ -58,10 +80,17 @@ namespace DownShooter.Gameplay.Weapons
             {
                 Projectile projectile = projectilesToDestroy[i];
 
-                projectile.Stop();
-
-                Destroy(projectile.gameObject);
+                StopProjectile(projectile);
             }
+        }
+        
+        private Projectile GetProjectileFromPool()
+        {
+            GameObject projectileObject = _poolingService.GetObjectFromPool(ProjectilesPool);
+
+            Projectile projectile = projectileObject.GetComponent<Projectile>();
+
+            return projectile;
         }
     }
 }

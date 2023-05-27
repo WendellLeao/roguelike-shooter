@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a38777888e8f8440a84b78865b4f5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 5879062220814613715, guid: d37a353d1e92f3c4bbd22956381d9ed9, type: 3}
+  _projectilesPool: {fileID: 11400000, guid: c052960d27e567c42a57c7fca98dcf4a, type: 2}
   _spawnPoint: {fileID: 388894361219071011}
 --- !u!1 &2809367415485005678
 GameObject:

@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using Leaosoft.Services;
+using Leaosoft.Pooling;
+using UnityEngine;
 using Leaosoft;
+using System;
 
 namespace DownShooter.Gameplay.Weapons.Projectiles
 {
     public sealed class Projectile : Entity
     {
+        public event Action<Projectile> OnCollided;
+        
         [Header("Objects")]
         [SerializeField] private Rigidbody2D _rigidbody;
         [SerializeField] private ProjectileView _projectileView;
@@ -14,19 +19,31 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
         [SerializeField] private int _damage;
 
         private ICanShoot _currentOwner;
+        private IPoolingService _poolingService;
+        private string _projectilesPool;
         private bool _hasOwner;
 
         public void Begin(ICanShoot owner)
         {
             _currentOwner = owner;
+            
             _hasOwner = _currentOwner != null;
             
             Begin();
         }
 
+        public void Stop(string projectilesPool)
+        {
+            _projectilesPool = projectilesPool;
+            
+            Stop();
+        }
+
         protected override void OnBegin()
         {
             base.OnBegin();
+
+            _poolingService = ServiceLocator.GetService<IPoolingService>();
             
             _projectileView.Setup();
         }
@@ -39,6 +56,8 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
 
             _currentOwner = null;
             _hasOwner = false;
+            
+            _poolingService.ReturnObjectToPool(_projectilesPool, gameObject);
         }
 
         public void AddForceTowards(ProjectileDirection projectileDirection)
@@ -63,8 +82,8 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
             }
 
             _projectileView.SpawnDestructionParticles();
-            
-            Destroy(gameObject);
+
+            OnCollided?.Invoke(this);
         }
 
         private bool ShouldCollideWith(Collider2D col)
@@ -73,7 +92,7 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
             {
                 return false;
             }
-            
+
             //If the projectile has collided with its owner.
             if (_hasOwner && col.transform == _currentOwner.GetTransform())
             {

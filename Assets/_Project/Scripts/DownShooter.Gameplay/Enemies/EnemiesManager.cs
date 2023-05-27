@@ -50,7 +50,11 @@ namespace DownShooter.Gameplay.Enemies
             {
                 Enemy enemy = SpawnEnemy();
 
+                enemy.OnEnemyDead += HandleEnemyDead;
+            
                 RandomizeEnemyPosition(enemy);
+                
+                enemy.Begin();
 
                 _enemies.Add(enemy);
             }
@@ -79,10 +83,6 @@ namespace DownShooter.Gameplay.Enemies
         {
             Enemy enemy = Instantiate(_enemyPrefab, transform);
 
-            enemy.OnEnemyDead += HandleEnemyDead;
-            
-            enemy.Begin();
-            
             return enemy;
         }
 
