@@ -185,6 +185,7 @@ MonoBehaviour:
   _movement: {fileID: 8268976762974098000}
   _shoot: {fileID: 3341522624302848713}
   _healthController: {fileID: 7587615205174680251}
+  _characterView: {fileID: 6340543313006477682}
   _currentWeapon: {fileID: 6869105412768419939}
 --- !u!114 &8268976762974098000
 MonoBehaviour:
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003b6732c5f44aabac6e8d6aefa3cbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maximumHealth: 100
+  _maximumHealth: 300
 --- !u!1 &4934546279800500119
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,8 +236,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4934546279800500118}
   - component: {fileID: 4934546279800500105}
+  - component: {fileID: 6340543313006477682}
   m_Layer: 0
-  m_Name: Player_View
+  m_Name: Character_View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,6 +312,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6340543313006477682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934546279800500119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be47ee1313454da6b7cc91b589d57dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 4934546279800500105}
+  _hitColor: {r: 0.9528302, g: 0, b: 0, a: 1}
 --- !u!1001 &6674756120562097944
 PrefabInstance:
   m_ObjectHideFlags: 0

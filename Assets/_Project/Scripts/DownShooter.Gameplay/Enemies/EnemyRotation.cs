@@ -19,8 +19,11 @@ namespace DownShooter.Gameplay.Enemies
         protected override void OnTick(float deltaTime)
         {
             base.OnTick(deltaTime);
-            
-            RotateTowards(_targetTransform, deltaTime);
+
+            if (_targetTransform != null)
+            {
+                RotateTowards(_targetTransform, deltaTime);
+            }
         }
 
         private void RotateTowards(Transform targetTransform, float deltaTime)
@@ -38,7 +41,8 @@ namespace DownShooter.Gameplay.Enemies
 
             Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxDegreesDelta: _rotationSpeed * deltaTime);
+            transform.rotation 
+                = Quaternion.RotateTowards(transform.rotation, targetRotation, maxDegreesDelta: _rotationSpeed * deltaTime);
         }
     }
 }

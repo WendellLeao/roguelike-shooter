@@ -93,10 +93,13 @@ namespace DownShooter.Gameplay.Weapons.Projectiles
                 return false;
             }
 
-            //If the projectile has collided with its owner.
-            if (_hasOwner && col.transform == _currentOwner.GetTransform())
+            if (_hasOwner)
             {
-                return false;
+                //If the projectile has collided with its owner.
+                if (col.transform == _currentOwner.GetTransform())
+                {
+                    return false;
+                }
             }
             
             return true;

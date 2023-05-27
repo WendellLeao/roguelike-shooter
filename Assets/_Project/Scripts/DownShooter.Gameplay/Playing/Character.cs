@@ -14,9 +14,17 @@ namespace DownShooter.Gameplay.Playing
         [SerializeField] private HealthController _healthController;
 
         [Header("Objects")] 
+        [SerializeField] private CharacterView _characterView;
         [SerializeField] private Weapon _currentWeapon;
 
         public HealthController HealthController => _healthController;
+        
+        public void TakeDamage(int damage)
+        {
+            _healthController.RemoveHealth(damage);
+            
+            _characterView.PlayHitAnimation();
+        }
         
         protected override void OnBegin()
         {
@@ -26,8 +34,9 @@ namespace DownShooter.Gameplay.Playing
             
             _movement.Begin(inputService);
             _shoot.Begin(inputService, _currentWeapon);
-            
             _healthController.Begin();
+            
+            _characterView.Setup();
         }
 
         protected override void OnStop()
@@ -36,8 +45,9 @@ namespace DownShooter.Gameplay.Playing
             
             _movement.Stop();
             _shoot.Stop();
-            
             _healthController.Stop();
+            
+            _characterView.Dispose();
         }
 
         protected override void OnTick(float deltaTime)
@@ -52,11 +62,6 @@ namespace DownShooter.Gameplay.Playing
             base.OnFixedTick(fixedDeltaTime);
             
             _movement.FixedTick(fixedDeltaTime);
-        }
-
-        public void TakeDamage(int damage)
-        {
-            _healthController.RemoveHealth(damage);
         }
     }
 }

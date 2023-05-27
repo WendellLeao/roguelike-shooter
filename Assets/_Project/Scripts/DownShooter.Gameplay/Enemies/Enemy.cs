@@ -1,31 +1,42 @@
+using DownShooter.Gameplay.Weapons.Projectiles;
+using DownShooter.Gameplay.Weapons;
 using UnityEngine;
 using Leaosoft;
 using System;
 
 namespace DownShooter.Gameplay.Enemies
 {
-    public sealed class Enemy : Entity, IDamageable
+    public sealed class Enemy : Entity, IDamageable, ICanShoot
     {
         public event Action<Enemy> OnEnemyDead;
         
+        [Header("Components")]
         [SerializeField] private HealthController _healthController;
         [SerializeField] private EnemyRotation _enemyRotation;
+        
+        [Header("Objects")]
         [SerializeField] private EnemyView _enemyView;
+        [SerializeField] private Weapon _currentWeapon;
         
         private Transform _targetTransform;
 
-        public void Begin(Transform targetTransform)
-        {
-            _targetTransform = targetTransform;
-            
-            Begin();
-        }
-        
         public void TakeDamage(int damage)
         {
             _enemyView.PlayHitAnimation();
                 
             _healthController.RemoveHealth(damage);
+        }
+        
+        public void Shoot(ProjectileDirection projectileDirection)
+        {
+            _currentWeapon.Shoot(projectileDirection);
+        }
+        
+        public void Begin(Transform targetTransform)
+        {
+            _targetTransform = targetTransform;
+            
+            Begin();
         }
 
         protected override void OnBegin()
@@ -36,9 +47,14 @@ namespace DownShooter.Gameplay.Enemies
             
             _healthController.Begin();
             _enemyRotation.Begin(_targetTransform);
+            
             _enemyView.Setup();
-        }
+            
+            _currentWeapon.Begin(owner: this);
 
+            Shoot(ProjectileDirection.Up);
+        }
+        
         protected override void OnStop()
         {
             base.OnStop();
@@ -47,7 +63,10 @@ namespace DownShooter.Gameplay.Enemies
             
             _healthController.Stop();
             _enemyRotation.Stop();
+            
             _enemyView.Dispose();
+            
+            _currentWeapon.Stop();
         }
 
         protected override void OnTick(float deltaTime)
@@ -60,6 +79,11 @@ namespace DownShooter.Gameplay.Enemies
         private void HandleDead()
         {
             OnEnemyDead?.Invoke(this);
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
         }
     }
 }

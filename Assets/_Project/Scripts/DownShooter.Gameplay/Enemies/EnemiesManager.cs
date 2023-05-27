@@ -14,9 +14,8 @@ namespace DownShooter.Gameplay.Enemies
         [SerializeField] private int _enemiesAmount;
 
         private IEventService _eventService;
-        private List<Enemy> _enemies;
-        private Character _character;
         private Transform _characterTransform;
+        private List<Enemy> _enemies;
 
         protected override void OnInitialize()
         {
@@ -69,8 +68,6 @@ namespace DownShooter.Gameplay.Enemies
             if (serviceEvent is CharacterCollideDoorEvent)
             {
                 DestroyEnemies();
-            
-                SpawnEnemiesAndRandomizePosition();
             }
         }
         
@@ -79,11 +76,11 @@ namespace DownShooter.Gameplay.Enemies
             for (int i = 0; i < _enemiesAmount; i++)
             {
                 Enemy enemy = SpawnEnemy();
-
+            
                 RandomizeEnemyPosition(enemy);
                 
                 BeginEnemy(enemy);
-
+            
                 _enemies.Add(enemy);
             }
         }
@@ -96,7 +93,7 @@ namespace DownShooter.Gameplay.Enemies
             {
                 enemiesToDestroy[i] = _enemies[i];
             }
-            
+
             for (int i = 0; i < enemiesToDestroy.Length; i++)
             {
                 Enemy enemy = enemiesToDestroy[i];
