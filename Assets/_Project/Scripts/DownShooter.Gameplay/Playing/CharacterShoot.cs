@@ -9,18 +9,27 @@ namespace DownShooter.Gameplay.Playing
     public sealed class CharacterShoot : EntityComponent, ICanShoot
     {
         private IInputService _inputService;
-        
         private Weapon _currentWeapon;
+        private CharacterView _characterView;
         private Vector2 _shoot;
+        private float _nextFire;
 
-        public void Begin(IInputService inputService, Weapon weapon)
+        public void Begin(IInputService inputService, Weapon weapon, CharacterView characterView)
         {
             _inputService = inputService;
             _currentWeapon = weapon;
+            _characterView = characterView;
             
             Begin();
         }
 
+        public void Shoot(ProjectileDirection projectileDirection)
+        {
+            _currentWeapon.Shoot(projectileDirection);
+                
+            _shoot = Vector2.zero;
+        }
+        
         protected override void OnBegin()
         {
             base.OnBegin();
@@ -43,17 +52,31 @@ namespace DownShooter.Gameplay.Playing
         {
             base.OnTick(deltaTime);
 
-            if (IsShooting(_shoot))
+            if (CanShoot() && IsShooting(_shoot))
             {
                 ProjectileDirection projectileDirection = GetProjectileDirection(_shoot);
                 
                 Shoot(projectileDirection);
+
+                _characterView.RotateCharacterHeadTowards(projectileDirection);
+
+                _nextFire = Time.time + _currentWeapon.FireRate;
             }
         }
 
         private void HandleReadInputs(InputsData inputsData)
         {
             _shoot = inputsData.Shoot;
+        }
+        
+        private bool CanShoot()
+        {
+            if (Time.time <= _nextFire)
+            {
+                return false;
+            }
+
+            return true;
         }
         
         private bool IsShooting(Vector2 shoot)
@@ -84,13 +107,6 @@ namespace DownShooter.Gameplay.Playing
             }
             
             return ProjectileDirection.Up;
-        }
-
-        public void Shoot(ProjectileDirection projectileDirection)
-        {
-            _currentWeapon.Shoot(projectileDirection);
-                
-            _shoot = Vector2.zero;
         }
 
         public Transform GetTransform()

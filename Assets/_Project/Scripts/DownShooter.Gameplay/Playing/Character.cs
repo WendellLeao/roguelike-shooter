@@ -32,8 +32,8 @@ namespace DownShooter.Gameplay.Playing
 
             IInputService inputService = ServiceLocator.GetService<IInputService>();
             
-            _movement.Begin(inputService);
-            _shoot.Begin(inputService, _currentWeapon);
+            _movement.Begin(inputService, _characterView);
+            _shoot.Begin(inputService, _currentWeapon, _characterView);
             _healthController.Begin();
             
             _characterView.Setup();

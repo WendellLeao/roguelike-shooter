@@ -12,11 +12,14 @@ namespace DownShooter.Gameplay.Weapons
         [Header("Objects")]
         [SerializeField] private PoolData _projectilesPool;
         [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private WeaponData _weaponData;
         
         private List<Projectile> _activeProjectiles;
         private IPoolingService _poolingService;
         private ICanShoot _currentOwner;
+        private int _currentAmmo;
 
+        public float FireRate => _weaponData.FireRate;
         private string ProjectilesPool => _projectilesPool.Id;
 
         public void Begin(ICanShoot owner)
@@ -28,6 +31,13 @@ namespace DownShooter.Gameplay.Weapons
 
         public void Shoot(ProjectileDirection projectileDirection)
         {
+            if (!WeaponIsLoaded())
+            {
+                return;
+            }
+
+            SubtractAmmo();
+            
             Projectile projectile = GetProjectileFromPool();
 
             projectile.OnCollided += HandleProjectileCollided;
@@ -46,6 +56,8 @@ namespace DownShooter.Gameplay.Weapons
             _activeProjectiles = new List<Projectile>();
             
             _poolingService = ServiceLocator.GetService<IPoolingService>();
+
+            _currentAmmo = _weaponData.MaximumAmmo;
         }
 
         protected override void OnStop()
@@ -53,6 +65,13 @@ namespace DownShooter.Gameplay.Weapons
             base.OnStop();
 
             StopActiveProjectiles();
+        }
+        
+        private void SubtractAmmo()
+        {
+            _currentAmmo -= 1;
+
+            _currentAmmo = Mathf.Clamp(_currentAmmo, 0, _weaponData.MaximumAmmo);
         }
 
         private void HandleProjectileCollided(Projectile projectile)
@@ -82,6 +101,21 @@ namespace DownShooter.Gameplay.Weapons
 
                 StopProjectile(projectile);
             }
+        }
+        
+        private bool WeaponIsLoaded()
+        {
+            if (_weaponData.InfiniteAmmo)
+            {
+                return true;
+            }
+
+            if (_currentAmmo > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
         
         private Projectile GetProjectileFromPool()

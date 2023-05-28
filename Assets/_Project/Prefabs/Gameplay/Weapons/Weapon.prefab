@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilesPool: {fileID: 11400000, guid: c052960d27e567c42a57c7fca98dcf4a, type: 2}
   _spawnPoint: {fileID: 388894361219071011}
+  _weaponData: {fileID: 11400000, guid: 16cf2e0cefff7fd48b77e3e70477b752, type: 2}
 --- !u!1 &2809367415485005678
 GameObject:
   m_ObjectHideFlags: 0

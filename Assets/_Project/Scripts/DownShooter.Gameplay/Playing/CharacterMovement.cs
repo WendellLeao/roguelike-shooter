@@ -10,12 +10,14 @@ namespace DownShooter.Gameplay.Playing
         [SerializeField] private float _movementSpeed;
         
         private IInputService _inputService;
+        private CharacterView _characterView;
         
         private Vector2 _movement;
 
-        public void Begin(IInputService inputService)
+        public void Begin(IInputService inputService, CharacterView characterView)
         {
             _inputService = inputService;
+            _characterView = characterView;
             
             Begin();
         }
@@ -43,7 +45,9 @@ namespace DownShooter.Gameplay.Playing
 
             Vector2 normalizedMovement = new Vector2(horizontalMovement, verticalMovement).normalized;
 
-            HandleCharacterOrientation(normalizedMovement);
+            Vector3 characterBodyOrientation = GetCharacterBodyOrientation(normalizedMovement);
+            
+            _characterView.RotateCharacterBodyTowards(characterBodyOrientation);
             
             _rigidbody.velocity = normalizedMovement * _movementSpeed;
         }
@@ -53,30 +57,29 @@ namespace DownShooter.Gameplay.Playing
             _movement = inputsData.Movement;
         }
         
-        private void HandleCharacterOrientation(Vector2 normalizedMovement)
+        private Vector3 GetCharacterBodyOrientation(Vector2 normalizedMovement)
         {
             if (normalizedMovement == Vector2.up)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0f);
-                return;
+                return new Vector3(0f, 0f, 0f);
             }
             
             if (normalizedMovement == Vector2.down)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 180f);
-                return;
+                return new Vector3(0f, 0f, 180f);
             }
             
             if (normalizedMovement == Vector2.left)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 90f);
-                return;
+                return new Vector3(0f, 0f, 90f);
             }
             
             if (normalizedMovement == Vector2.right)
             {
-                transform.rotation = Quaternion.Euler(0, 0, -90f);
+                return new Vector3(0f, 0f, -90f);
             }
+            
+            return _characterView.BodyRotation.eulerAngles;
         }
     }
 }

@@ -27,8 +27,6 @@ namespace DownShooter.Gameplay.Maps
             
             if (col.transform.TryGetComponent(out Character character))
             {
-                Debug.Log("Character collide");
-
                 _eventService.DispatchEvent(new CharacterCollideDoorEvent());
                 
                 _hasCollideWithCharacter = true;

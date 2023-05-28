@@ -19,6 +19,13 @@ namespace DownShooter.Gameplay.Enemies
         [SerializeField] private Weapon _currentWeapon;
         
         private Transform _targetTransform;
+        
+        public void Begin(Transform targetTransform)
+        {
+            _targetTransform = targetTransform;
+            
+            Begin();
+        }
 
         public void TakeDamage(int damage)
         {
@@ -32,13 +39,6 @@ namespace DownShooter.Gameplay.Enemies
             _currentWeapon.Shoot(projectileDirection);
         }
         
-        public void Begin(Transform targetTransform)
-        {
-            _targetTransform = targetTransform;
-            
-            Begin();
-        }
-
         protected override void OnBegin()
         {
             base.OnBegin();
