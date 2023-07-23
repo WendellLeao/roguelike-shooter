@@ -8,14 +8,13 @@
       "url": "https://package.openupm.com"
     },
     "com.leaosoft.core": {
-      "version": "1.4.12",
+      "version": "file:C:/Users/leaow/Documents/_Projects/_Unity/Leaosoft/leaosoft-framework",
       "depth": 0,
-      "source": "registry",
+      "source": "local",
       "dependencies": {
         "com.unity.inputsystem": "1.4.1",
         "com.cysharp.unitask": "2.3.1"
-      },
-      "url": "https://package.openupm.com"
+      }
     },
     "com.unity.2d.animation": {
       "version": "7.0.10",

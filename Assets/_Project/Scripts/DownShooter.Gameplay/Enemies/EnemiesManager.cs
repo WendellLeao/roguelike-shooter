@@ -1,4 +1,3 @@
-using DownShooter.Gameplay.Playing;
 using System.Collections.Generic;
 using DownShooter.Gameplay.Maps;
 using Leaosoft.Services;
@@ -11,10 +10,8 @@ namespace DownShooter.Gameplay.Enemies
     public sealed class EnemiesManager : Manager
     {
         [SerializeField] private Enemy _enemyPrefab;
-        [SerializeField] private int _enemiesAmount;
 
         private IEventService _eventService;
-        private Transform _characterTransform;
         private List<Enemy> _enemies;
 
         protected override void OnInitialize()
@@ -25,7 +22,7 @@ namespace DownShooter.Gameplay.Enemies
             
             _eventService = ServiceLocator.GetService<IEventService>();
             
-            _eventService.AddEventListener<CharacterSpawnedEvent>(HandleCharacterSpawned);
+            _eventService.AddEventListener<MapSpawnedEvent>(HandleMapSpawned);
             _eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
         }
 
@@ -33,7 +30,7 @@ namespace DownShooter.Gameplay.Enemies
         {
             base.OnDispose();
 
-            _eventService.RemoveEventListener<CharacterSpawnedEvent>(HandleCharacterSpawned);
+            _eventService.RemoveEventListener<MapSpawnedEvent>(HandleMapSpawned);
             _eventService.RemoveEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
             
             DestroyEnemies();
@@ -51,15 +48,15 @@ namespace DownShooter.Gameplay.Enemies
             }
         }
 
-        private void HandleCharacterSpawned(ServiceEvent serviceEvent)
+        private void HandleMapSpawned(ServiceEvent serviceEvent)
         {
-            if (serviceEvent is CharacterSpawnedEvent characterSpawnedEvent)
+            if (serviceEvent is MapSpawnedEvent mapSpawnedEvent)
             {
-                Character character = characterSpawnedEvent.Character;
+                MapLayout mapLayout = mapSpawnedEvent.MapLayout;
 
-                _characterTransform = character.transform;
+                MapLayoutData mapLayoutData = mapLayout.Data;
                 
-                SpawnEnemiesAndRandomizePosition();
+                SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesAmount);
             }
         }
         
@@ -71,9 +68,9 @@ namespace DownShooter.Gameplay.Enemies
             }
         }
         
-        private void SpawnEnemiesAndRandomizePosition()
+        private void SpawnEnemiesAndRandomizePosition(int enemiesAmount)
         {
-            for (int i = 0; i < _enemiesAmount; i++)
+            for (int i = 0; i < enemiesAmount; i++)
             {
                 Enemy enemy = SpawnEnemy();
             
@@ -115,7 +112,7 @@ namespace DownShooter.Gameplay.Enemies
         {
             enemy.OnEnemyDead += HandleEnemyDead;
 
-            enemy.Begin(_characterTransform);
+            enemy.Begin();
         }
 
         private void DestroyEnemy(Enemy enemy)

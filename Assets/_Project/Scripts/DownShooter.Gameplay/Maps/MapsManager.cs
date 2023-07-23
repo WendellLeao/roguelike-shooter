@@ -14,10 +14,12 @@ namespace DownShooter.Gameplay.Maps
         
         [Header("Layouts")]
         [SerializeField] private MapLayout[] _mapLayouts;
+        [SerializeField] private int _countToSpawnShop = 5;
 
         private IEventService _eventService;
         private MapLayout _currentMap;
         private int _lastRandomIndex;
+        private int _mapsCount;
 
         protected override void OnInitialize()
         {
@@ -47,6 +49,10 @@ namespace DownShooter.Gameplay.Maps
             _currentMap = Instantiate(map, _gridTransform);
 
             _currentMap.Begin();
+            
+            _eventService.DispatchEvent(new MapSpawnedEvent(_currentMap));
+
+            _mapsCount++;
         }
 
         private void DestroyCurrentMap()
@@ -62,9 +68,20 @@ namespace DownShooter.Gameplay.Maps
         {
             if (serviceEvent is CharacterCollideDoorEvent)
             {
-                MapLayout randomMap = GetRandomMap();
-                
-                SpawnMap(randomMap);
+                MapLayout nextMapLayout = null;
+
+                if (_mapsCount <= _countToSpawnShop)
+                {
+                    nextMapLayout = GetRandomMap();
+                }
+                else
+                {
+                    _mapsCount = 0;
+                    
+                    nextMapLayout = _mapLayoutShop;
+                }
+
+                SpawnMap(nextMapLayout);
             }
         }
 

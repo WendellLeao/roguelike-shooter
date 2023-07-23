@@ -6,7 +6,10 @@ namespace DownShooter.Gameplay.Maps
     public sealed class MapLayout : Entity
     {
         [SerializeField] private Doors _doors;
+        [SerializeField] private MapLayoutData _data;
 
+        public MapLayoutData Data => _data;
+        
         protected override void OnBegin()
         {
             base.OnBegin();

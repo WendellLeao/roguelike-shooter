@@ -999,5 +999,9 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[157].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 7023904524622746623, guid: 759ae12285d1cf74a9db004142cabd07, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 4030a56dd2e92294480127d2423b43f1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 759ae12285d1cf74a9db004142cabd07, type: 3}

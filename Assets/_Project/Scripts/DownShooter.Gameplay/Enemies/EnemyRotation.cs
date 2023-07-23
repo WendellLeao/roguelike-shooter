@@ -7,23 +7,14 @@ namespace DownShooter.Gameplay.Enemies
     {
         [SerializeField] private float _rotationSpeed = 200f;
         
-        private Transform _targetTransform;
-
-        public void Begin(Transform targetTransform)
-        {
-            _targetTransform = targetTransform;
-            
-            Begin();
-        }
-
         protected override void OnTick(float deltaTime)
         {
             base.OnTick(deltaTime);
 
-            if (_targetTransform != null)
-            {
-                RotateTowards(_targetTransform, deltaTime);
-            }
+            // if (_targetTransform != null)
+            // {
+            //     RotateTowards(_targetTransform, deltaTime);
+            // }
         }
 
         private void RotateTowards(Transform targetTransform, float deltaTime)

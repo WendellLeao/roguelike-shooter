@@ -1639,6 +1639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doors: {fileID: 8699294027259865930}
+  _data: {fileID: 11400000, guid: 3c1fb85d68d31c64086659348e4acdb3, type: 2}
 --- !u!1 &7902286776787903545
 GameObject:
   m_ObjectHideFlags: 0

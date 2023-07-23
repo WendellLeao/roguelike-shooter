@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023904524622746619, guid: 759ae12285d1cf74a9db004142cabd07, type: 3}
       propertyPath: m_Name
-      value: MapLayout1
+      value: MapLayout01
       objectReference: {fileID: 0}
     - target: {fileID: 7023904524622746620, guid: 759ae12285d1cf74a9db004142cabd07, type: 3}
       propertyPath: m_Tiles.Array.size
@@ -743,5 +743,9 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[145].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 7023904524622746623, guid: 759ae12285d1cf74a9db004142cabd07, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 255fe01f166f2094d92e0fb56c416029, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 759ae12285d1cf74a9db004142cabd07, type: 3}

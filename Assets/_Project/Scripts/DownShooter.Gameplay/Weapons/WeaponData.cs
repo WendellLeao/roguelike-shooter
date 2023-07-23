@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using DownShooter.Utilities;
+using UnityEngine;
 
 namespace DownShooter.Gameplay.Weapons
 {
-    [CreateAssetMenu(menuName = "DownShooter/Weapons/WeaponData", fileName = "NewWeaponData")]
+    [CreateAssetMenu(fileName = "WeaponData", menuName = PathUtility.WeaponsCreateMenuPath + "/WeaponData")]
     public sealed class WeaponData : ScriptableObject
     {
         [SerializeField] private float _fireRate;
