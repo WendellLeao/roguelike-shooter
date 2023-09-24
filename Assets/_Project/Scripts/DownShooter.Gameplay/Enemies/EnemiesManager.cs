@@ -56,7 +56,7 @@ namespace DownShooter.Gameplay.Enemies
 
                 MapLayoutData mapLayoutData = mapLayout.Data;
                 
-                SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesAmount);
+                SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesPrefab);
             }
         }
         
@@ -68,12 +68,14 @@ namespace DownShooter.Gameplay.Enemies
             }
         }
         
-        private void SpawnEnemiesAndRandomizePosition(int enemiesAmount)
+        private void SpawnEnemiesAndRandomizePosition(GameObject[] enemiesPrefab)
         {
-            for (int i = 0; i < enemiesAmount; i++)
+            for (int i = 0; i < enemiesPrefab.Length; i++)
             {
-                Enemy enemy = SpawnEnemy();
-            
+                GameObject enemyPrefab = enemiesPrefab[i];
+
+                Enemy enemy = SpawnEnemy(enemyPrefab);
+                
                 RandomizeEnemyPosition(enemy);
                 
                 BeginEnemy(enemy);
@@ -101,10 +103,12 @@ namespace DownShooter.Gameplay.Enemies
             _enemies.Clear();
         }
 
-        private Enemy SpawnEnemy()
+        private Enemy SpawnEnemy(GameObject enemyPrefab)
         {
-            Enemy enemy = Instantiate(_enemyPrefab, transform);
+            GameObject enemyClone = Instantiate(enemyPrefab, transform);
 
+            Enemy enemy = enemyClone.GetComponent<Enemy>();
+            
             return enemy;
         }
         

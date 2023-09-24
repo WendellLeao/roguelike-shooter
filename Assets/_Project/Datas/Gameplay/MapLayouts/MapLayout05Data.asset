@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: MapLayout05Data
   m_EditorClassIdentifier: 
   _id: map_layout_05
-  _enemiesAmount: 5
+  _enemiesPrefab:
+  - {fileID: 6138954682767977406, guid: a046a7f463d5a5c42b7cdda9b18c26cf, type: 3}
+  - {fileID: 6138954682767977406, guid: a046a7f463d5a5c42b7cdda9b18c26cf, type: 3}
+  - {fileID: 6138954682767977406, guid: a046a7f463d5a5c42b7cdda9b18c26cf, type: 3}
+  - {fileID: 6138954682767977406, guid: a046a7f463d5a5c42b7cdda9b18c26cf, type: 3}
+  - {fileID: 6138954682767977406, guid: a046a7f463d5a5c42b7cdda9b18c26cf, type: 3}

@@ -6,11 +6,12 @@ namespace DownShooter.Gameplay.Maps
     [CreateAssetMenu(fileName = "MapLayoutData", menuName = PathUtility.MapLayoutsCreateMenuPath + "/MapLayoutData")]
     public sealed class MapLayoutData : ScriptableObject
     {
-        [SerializeField] private string _id;
-        [SerializeField] private int _enemiesAmount;
+        [SerializeField] 
+        private string _id;
         
-        public string Id => _id;
+        [SerializeField] 
+        private GameObject[] _enemiesPrefab;
         
-        public int EnemiesAmount => _enemiesAmount;
+        public GameObject[] EnemiesPrefab => _enemiesPrefab;
     }
 }
