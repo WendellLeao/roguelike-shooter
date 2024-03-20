@@ -48,6 +48,7 @@ MonoBehaviour:
   _poolsData:
   - {fileID: 11400000, guid: 503e36284632e854eb71882f2f2374e3, type: 2}
   - {fileID: 11400000, guid: c052960d27e567c42a57c7fca98dcf4a, type: 2}
+  - {fileID: 11400000, guid: 8839eb5ce915bd848acd69a351fbcfc0, type: 2}
 --- !u!114 &-4752456487044820479
 MonoBehaviour:
   m_ObjectHideFlags: 0
