@@ -55,8 +55,11 @@ namespace DownShooter.Gameplay.Enemies
                 MapLayout mapLayout = mapSpawnedEvent.MapLayout;
 
                 MapLayoutData mapLayoutData = mapLayout.Data;
-                
-                SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesPrefab);
+
+                if (mapLayoutData.EnemiesPrefab != null)
+                {
+                    SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesPrefab);
+                }
             }
         }
         
