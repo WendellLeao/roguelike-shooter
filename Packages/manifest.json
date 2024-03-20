@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.leaosoft.core": "file:C:/Users/leaow/Documents/_Projects/_Unity/Leaosoft/leaosoft-framework",
+    "com.leaosoft.core": "1.4.12",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.feature.2d": "1.0.0",
     "com.unity.ide.rider": "3.0.21",
