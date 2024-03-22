@@ -5,10 +5,15 @@ namespace DownShooter.Gameplay.Maps
 {
     public sealed class MapLayout : Entity
     {
-        [SerializeField] private Doors _doors;
-        [SerializeField] private MapLayoutData _data;
+        [SerializeField]
+        private Doors _doors;
+        [SerializeField]
+        private MapLayoutData _data;
+        [SerializeField]
+        private MapSpawnPoints _mapSpawnPoints;
 
         public MapLayoutData Data => _data;
+        public MapSpawnPoints MapSpawnPoints => _mapSpawnPoints;
         
         protected override void OnBegin()
         {

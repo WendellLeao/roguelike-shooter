@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DownShooter.Gameplay.Maps;
+using DownShooter.Gameplay.Playing;
 using Leaosoft.Services;
 using Leaosoft.Events;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace DownShooter.Gameplay.Enemies
 
         private IEventService _eventService;
         private List<Enemy> _enemies;
+        private Transform _targetTransform;
 
         protected override void OnInitialize()
         {
@@ -22,6 +24,7 @@ namespace DownShooter.Gameplay.Enemies
             
             _eventService = ServiceLocator.GetService<IEventService>();
             
+            _eventService.AddEventListener<CharacterSpawnedEvent>(HandleCharacterSpawned);
             _eventService.AddEventListener<MapSpawnedEvent>(HandleMapSpawned);
             _eventService.AddEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
         }
@@ -30,6 +33,7 @@ namespace DownShooter.Gameplay.Enemies
         {
             base.OnDispose();
 
+            _eventService.RemoveEventListener<CharacterSpawnedEvent>(HandleCharacterSpawned);
             _eventService.RemoveEventListener<MapSpawnedEvent>(HandleMapSpawned);
             _eventService.RemoveEventListener<CharacterCollideDoorEvent>(HandleCharacterCollideDoor);
             
@@ -48,6 +52,14 @@ namespace DownShooter.Gameplay.Enemies
             }
         }
 
+        private void HandleCharacterSpawned(ServiceEvent serviceEvent)
+        {
+            if (serviceEvent is CharacterSpawnedEvent characterSpawnedEvent)
+            {
+                _targetTransform = characterSpawnedEvent.Character.transform;
+            }
+        }
+        
         private void HandleMapSpawned(ServiceEvent serviceEvent)
         {
             if (serviceEvent is MapSpawnedEvent mapSpawnedEvent)
@@ -55,6 +67,7 @@ namespace DownShooter.Gameplay.Enemies
                 MapLayout mapLayout = mapSpawnedEvent.MapLayout;
 
                 MapLayoutData mapLayoutData = mapLayout.Data;
+                MapSpawnPoints mapSpawnPoints = mapLayout.MapSpawnPoints; // TODO: spawn enemies in positions
 
                 if (mapLayoutData.EnemiesPrefab != null)
                 {
@@ -81,7 +94,7 @@ namespace DownShooter.Gameplay.Enemies
                 
                 RandomizeEnemyPosition(enemy);
                 
-                BeginEnemy(enemy);
+                BeginEnemy(enemy, _targetTransform);
             
                 _enemies.Add(enemy);
             }
@@ -115,11 +128,11 @@ namespace DownShooter.Gameplay.Enemies
             return enemy;
         }
         
-        private void BeginEnemy(Enemy enemy)
+        private void BeginEnemy(Enemy enemy, Transform targetTransform)
         {
             enemy.OnEnemyDead += HandleEnemyDead;
 
-            enemy.Begin();
+            enemy.Begin(targetTransform);
         }
 
         private void DestroyEnemy(Enemy enemy)

@@ -377,7 +377,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 44ad460c6d9644b499f383b11a84f590, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -584,6 +584,10 @@ PrefabInstance:
       propertyPath: _projectilesPool
       value: 
       objectReference: {fileID: 11400000, guid: 8839eb5ce915bd848acd69a351fbcfc0, type: 2}
+    - target: {fileID: 388894361219071011, guid: d49a8b6e6f43d834f8615b1b87289520, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1111241435600993288, guid: d49a8b6e6f43d834f8615b1b87289520, type: 3}
       propertyPath: m_Name
       value: Weapon

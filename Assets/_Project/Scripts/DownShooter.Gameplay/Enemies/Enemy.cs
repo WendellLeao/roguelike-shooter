@@ -18,6 +18,15 @@ namespace DownShooter.Gameplay.Enemies
         [SerializeField] private EnemyView _enemyView;
         [SerializeField] private Weapon _currentWeapon;
 
+        private Transform _targetTransform;
+        
+        public void Begin(Transform targetTransform)
+        {
+            _targetTransform = targetTransform;
+
+            base.Begin();
+        }
+        
         public void TakeDamage(int damage)
         {
             _enemyView.PlayHitAnimation();
@@ -37,7 +46,7 @@ namespace DownShooter.Gameplay.Enemies
             _healthController.OnDead += HandleDead;
             
             _healthController.Begin();
-            _enemyRotation.Begin();
+            _enemyRotation.Begin(_targetTransform);
             
             _enemyView.Setup();
             
