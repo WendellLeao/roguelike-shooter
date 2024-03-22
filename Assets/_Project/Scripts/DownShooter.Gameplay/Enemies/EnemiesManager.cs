@@ -67,11 +67,11 @@ namespace DownShooter.Gameplay.Enemies
                 MapLayout mapLayout = mapSpawnedEvent.MapLayout;
 
                 MapLayoutData mapLayoutData = mapLayout.Data;
-                MapSpawnPoints mapSpawnPoints = mapLayout.MapSpawnPoints; // TODO: spawn enemies in positions
+                MapSpawnPoints mapSpawnPoints = mapLayout.MapSpawnPoints;
 
                 if (mapLayoutData.EnemiesPrefab != null)
                 {
-                    SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesPrefab);
+                    SpawnEnemiesAndRandomizePosition(mapLayoutData.EnemiesPrefab, mapSpawnPoints);
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace DownShooter.Gameplay.Enemies
             }
         }
         
-        private void SpawnEnemiesAndRandomizePosition(GameObject[] enemiesPrefab)
+        private void SpawnEnemiesAndRandomizePosition(GameObject[] enemiesPrefab, MapSpawnPoints mapSpawnPoints)
         {
             for (int i = 0; i < enemiesPrefab.Length; i++)
             {
@@ -92,7 +92,7 @@ namespace DownShooter.Gameplay.Enemies
 
                 Enemy enemy = SpawnEnemy(enemyPrefab);
                 
-                RandomizeEnemyPosition(enemy);
+                RandomizeEnemyPosition(enemy, mapSpawnPoints);
                 
                 BeginEnemy(enemy, _targetTransform);
             
@@ -151,21 +151,11 @@ namespace DownShooter.Gameplay.Enemies
             DestroyEnemy(enemy);
         }
 
-        private void RandomizeEnemyPosition(Enemy enemy)
+        private void RandomizeEnemyPosition(Enemy enemy, MapSpawnPoints mapSpawnPoints)
         {
-            Vector3 initialPosition = new Vector3(GetRandomValue(), GetRandomValue(), 0f);
+            Transform randomSpawnPoint = mapSpawnPoints.GetRandomAvailableSpawnPoint();
 
-            enemy.transform.localPosition = initialPosition;
-        }
-
-        private float GetRandomValue()//TODO: implement this
-        {
-            float minimumValue = -4f;
-            float maximumValue = 4f;
-
-            float randomValue = Random.Range(minimumValue, maximumValue);
-            
-            return randomValue;
+            enemy.transform.localPosition = randomSpawnPoint.position;
         }
     }
 }
