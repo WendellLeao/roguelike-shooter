@@ -1,21 +1,11 @@
 {
   "dependencies": {
     "com.cysharp.unitask": {
-      "version": "2.3.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
-    "com.leaosoft.core": {
-      "version": "1.4.12",
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
       "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.inputsystem": "1.4.1",
-        "com.cysharp.unitask": "2.3.1"
-      },
-      "url": "https://package.openupm.com"
+      "source": "git",
+      "dependencies": {},
+      "hash": "88ecfa2992d4f7247aaad0322921aa3fb929aeee"
     },
     "com.unity.2d.animation": {
       "version": "7.0.10",
@@ -166,7 +156,7 @@
     },
     "com.unity.inputsystem": {
       "version": "1.5.1",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
