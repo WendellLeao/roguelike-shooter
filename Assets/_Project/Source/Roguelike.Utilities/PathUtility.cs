@@ -5,6 +5,6 @@ namespace Roguelike.Utilities
         public const string MapLayoutsCreateMenuPath = CreateMenuPath + "/MapLayouts";
         public const string WeaponsCreateMenuPath = CreateMenuPath + "/Weapons";
 
-        private const string CreateMenuPath = "DownShooter";
+        private const string CreateMenuPath = "RogueLike";
     }
 }
