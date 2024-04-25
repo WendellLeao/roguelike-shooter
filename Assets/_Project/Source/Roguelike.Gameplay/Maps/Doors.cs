@@ -25,7 +25,7 @@ namespace Roguelike.Gameplay.Maps
                 return;
             }
             
-            if (col.transform.TryGetComponent(out Character character))
+            if (col.transform.TryGetComponent(out Character _))
             {
                 _eventService.DispatchEvent(new CharacterCollideDoorEvent());
                 

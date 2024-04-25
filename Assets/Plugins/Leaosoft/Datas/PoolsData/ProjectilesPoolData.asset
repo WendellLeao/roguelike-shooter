@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f71fbee99a96048a4ce89163601ddf, type: 3}
   m_Name: ProjectilesPoolData
   m_EditorClassIdentifier: 
-  Id: base_projectiles
-  ObjectToPool: {fileID: 5879062220814613716, guid: d37a353d1e92f3c4bbd22956381d9ed9, type: 3}
-  StartAmount: 20
+  _id: base_projectiles
+  _objectToPool: {fileID: 5879062220814613716, guid: d37a353d1e92f3c4bbd22956381d9ed9, type: 3}
+  _startAmount: 20

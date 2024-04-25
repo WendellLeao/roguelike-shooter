@@ -8,7 +8,8 @@ namespace Roguelike.Gameplay
     {
         public event Action OnDead;
         
-        [SerializeField] private int _maximumHealth = 100;
+        [SerializeField]
+        private int _maximumHealth = 100;
 
         private int _currentHealth;
 

@@ -8,13 +8,18 @@ namespace Roguelike.Gameplay.Maps
     public sealed class MapsManager : Manager
     {
         [Header("Objects")] 
-        [SerializeField] private Transform _gridTransform;
-        [SerializeField] private MapLayout _mapLayoutLobby;
-        [SerializeField] private MapLayout _mapLayoutShop;
+        [SerializeField]
+        private Transform _gridTransform;
+        [SerializeField]
+        private MapLayout _mapLayoutLobby;
+        [SerializeField]
+        private MapLayout _mapLayoutShop;
         
         [Header("Layouts")]
-        [SerializeField] private MapLayout[] _mapLayouts;
-        [SerializeField] private int _countToSpawnShop = 5;
+        [SerializeField]
+        private MapLayout[] _mapLayouts;
+        [SerializeField]
+        private int _countToSpawnShop = 5;
 
         private IEventService _eventService;
         private MapLayout _currentMap;

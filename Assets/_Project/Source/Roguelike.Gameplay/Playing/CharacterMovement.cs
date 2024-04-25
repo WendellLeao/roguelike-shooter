@@ -6,8 +6,10 @@ namespace Roguelike.Gameplay.Playing
 {
     public sealed class CharacterMovement : EntityComponent
     {
-        [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private float _movementSpeed;
+        [SerializeField]
+        private Rigidbody2D _rigidbody;
+        [SerializeField]
+        private float _movementSpeed;
         
         private IInputService _inputService;
         private CharacterView _characterView;

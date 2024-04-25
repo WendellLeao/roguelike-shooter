@@ -11,12 +11,16 @@ namespace Roguelike.Gameplay.Weapons.Projectiles
         public event Action<Projectile> OnCollided;
         
         [Header("Objects")]
-        [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private ProjectileView _projectileView;
+        [SerializeField]
+        private Rigidbody2D _rigidbody;
+        [SerializeField]
+        private ProjectileView _projectileView;
         
         [Header("Settings")]
-        [SerializeField] private float _force;
-        [SerializeField] private int _damage;
+        [SerializeField]
+        private float _force;
+        [SerializeField]
+        private int _damage;
 
         private ICanShoot _currentOwner;
         private IPoolingService _poolingService;
@@ -95,7 +99,7 @@ namespace Roguelike.Gameplay.Weapons.Projectiles
 
             if (_hasOwner)
             {
-                //If the projectile has collided with its owner.
+                // If the projectile has collided with its owner.
                 if (col.transform == _currentOwner.GetTransform())
                 {
                     return false;

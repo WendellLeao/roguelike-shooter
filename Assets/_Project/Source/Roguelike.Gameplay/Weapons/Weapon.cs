@@ -10,9 +10,12 @@ namespace Roguelike.Gameplay.Weapons
     public sealed class Weapon : Entity
     {
         [Header("Objects")]
-        [SerializeField] private PoolData _projectilesPool;
-        [SerializeField] private Transform _spawnPoint;
-        [SerializeField] private WeaponData _weaponData;
+        [SerializeField]
+        private PoolData _projectilesPool;
+        [SerializeField]
+        private Transform _spawnPoint;
+        [SerializeField]
+        private WeaponData _weaponData;
         
         private List<Projectile> _activeProjectiles;
         private IPoolingService _poolingService;

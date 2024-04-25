@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c08d0a9debb56f47a2b8947b970085d, type: 3}
   m_Name: GameThemeAudioData
   m_EditorClassIdentifier: 
-  Id: game-theme
-  AudioClips:
-  - {fileID: 0}
-  AudioMixerGroup: {fileID: 0}
-  Volume: 0.5
-  Pitch: 1
-  SpatialBlend: 0
-  Loop: 1
-  PersistentSound: 1
+  _id: game-theme
+  _audioClips: []
+  _audioMixerGroup: {fileID: 0}
+  _volume: 0.5
+  _pitch: 1
+  _spatialBlend: 0
+  _loop: 1
+  _persistentSound: 1

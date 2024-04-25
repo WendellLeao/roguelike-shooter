@@ -7,14 +7,16 @@ namespace Roguelike.Gameplay.Enemies
 {
     public sealed class EnemyView : EntityView
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Color _hitColor;
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+        [SerializeField]
+        private Color _hitColor;
         
         private Color _originalColor;
 
         public void PlayHitAnimation()
         {
-            UniTask async = PlayHitAnimationAsync();
+            PlayHitAnimationAsync();
         }
         
         protected override void OnSetup()
@@ -24,7 +26,7 @@ namespace Roguelike.Gameplay.Enemies
             _originalColor = _spriteRenderer.color;
         }
 
-        private async UniTask PlayHitAnimationAsync()
+        private async void PlayHitAnimationAsync()
         {
             _spriteRenderer.color = _hitColor;
 

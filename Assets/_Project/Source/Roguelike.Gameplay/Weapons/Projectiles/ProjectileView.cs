@@ -5,7 +5,8 @@ namespace Roguelike.Gameplay.Weapons.Projectiles
 {
     public sealed class ProjectileView : EntityView
     {
-        [SerializeField] private ParticleSystem _particlesPrefab;
+        [SerializeField]
+        private ParticleSystem _particlesPrefab;
         
         public void SpawnDestructionParticles()
         {

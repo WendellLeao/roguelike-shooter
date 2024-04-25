@@ -11,12 +11,16 @@ namespace Roguelike.Gameplay.Enemies
         public event Action<Enemy> OnEnemyDead;
         
         [Header("Components")]
-        [SerializeField] private HealthController _healthController;
-        [SerializeField] private EnemyRotation _enemyRotation;
+        [SerializeField]
+        private HealthController _healthController;
+        [SerializeField]
+        private EnemyRotation _enemyRotation;
         
         [Header("Objects")]
-        [SerializeField] private EnemyView _enemyView;
-        [SerializeField] private Weapon _currentWeapon;
+        [SerializeField]
+        private EnemyView _enemyView;
+        [SerializeField]
+        private Weapon _currentWeapon;
 
         private Transform _targetTransform;
         

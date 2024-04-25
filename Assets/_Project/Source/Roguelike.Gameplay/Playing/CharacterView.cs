@@ -9,12 +9,16 @@ namespace Roguelike.Gameplay.Playing
     public sealed class CharacterView : EntityView
     {
         [Header("Objects")]
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Transform _headTransform;
-        [SerializeField] private Transform _bodyTransform;
+        [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+        [SerializeField]
+        private Transform _headTransform;
+        [SerializeField]
+        private Transform _bodyTransform;
         
         [Header("Settings")]
-        [SerializeField] private Color _hitColor;
+        [SerializeField]
+        private Color _hitColor;
         
         private Color _originalColor;
 
@@ -34,7 +38,7 @@ namespace Roguelike.Gameplay.Playing
         
         public void PlayHitAnimation()
         {
-            UniTask async = PlayHitAnimationAsync();
+            PlayHitAnimationAsync();
         }
         
         protected override void OnSetup()
@@ -44,7 +48,7 @@ namespace Roguelike.Gameplay.Playing
             _originalColor = _spriteRenderer.color;
         }
 
-        private async UniTask PlayHitAnimationAsync()
+        private async void PlayHitAnimationAsync()
         {
             _spriteRenderer.color = _hitColor;
 

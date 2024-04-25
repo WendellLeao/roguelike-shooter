@@ -5,8 +5,8 @@ namespace Roguelike.Gameplay
 {
     public interface ICanShoot
     {
-        void Shoot(ProjectileDirection projectileDirection);
+        public void Shoot(ProjectileDirection projectileDirection);
 
-        Transform GetTransform();
+        public Transform GetTransform();
     }
 }

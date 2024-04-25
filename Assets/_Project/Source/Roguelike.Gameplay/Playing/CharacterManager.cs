@@ -8,8 +8,10 @@ namespace Roguelike.Gameplay.Playing
 {
     public sealed class CharacterManager : Manager
     {
-        [SerializeField] private Character _characterPrefab;
-        [SerializeField] private Transform _spawnPoint;
+        [SerializeField]
+        private Character _characterPrefab;
+        [SerializeField]
+        private Transform _spawnPoint;
         
         private IEventService _eventService;
         private Character _character;
@@ -84,7 +86,8 @@ namespace Roguelike.Gameplay.Playing
             
             _character.Stop();
 
-            Destroy(_character.gameObject);//TODO: implement pooling
+            // TODO: implement pooling
+            Destroy(_character.gameObject);
         }
     }
 }

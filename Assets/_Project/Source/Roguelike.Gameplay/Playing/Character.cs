@@ -9,13 +9,18 @@ namespace Roguelike.Gameplay.Playing
     public sealed class Character : Entity, IDamageable
     {
         [Header("Components")]
-        [SerializeField] private CharacterMovement _movement;
-        [SerializeField] private CharacterShoot _shoot;
-        [SerializeField] private HealthController _healthController;
+        [SerializeField]
+        private CharacterMovement _movement;
+        [SerializeField]
+        private CharacterShoot _shoot;
+        [SerializeField]
+        private HealthController _healthController;
 
         [Header("Objects")] 
-        [SerializeField] private CharacterView _characterView;
-        [SerializeField] private Weapon _currentWeapon;
+        [SerializeField]
+        private CharacterView _characterView;
+        [SerializeField]
+        private Weapon _currentWeapon;
 
         public HealthController HealthController => _healthController;
         

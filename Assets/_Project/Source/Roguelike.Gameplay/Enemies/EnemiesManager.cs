@@ -10,7 +10,8 @@ namespace Roguelike.Gameplay.Enemies
 {
     public sealed class EnemiesManager : Manager
     {
-        [SerializeField] private Enemy _enemyPrefab;
+        [SerializeField]
+        private Enemy _enemyPrefab;
 
         private IEventService _eventService;
         private List<Enemy> _enemies;

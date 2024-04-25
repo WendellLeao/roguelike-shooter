@@ -14,6 +14,7 @@ namespace Roguelike.Gameplay.Maps
         public void ShuffleSpawnPoints()
         {
             System.Random random = new System.Random();
+            
             _spawnPointDictionary = _spawnPointDictionary.OrderBy(x => random.Next())
                 .ToDictionary(item => item.Key, item => item.Value);
         }

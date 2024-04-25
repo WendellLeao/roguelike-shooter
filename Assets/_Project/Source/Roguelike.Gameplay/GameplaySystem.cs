@@ -7,9 +7,12 @@ namespace Roguelike.Gameplay
 {
     public sealed class GameplaySystem : Leaosoft.System
     {
-        [SerializeField] private CharacterManager _characterManager;
-        [SerializeField] private EnemiesManager _enemiesManager;
-        [SerializeField] private MapsManager _mapsManager;
+        [SerializeField]
+        private CharacterManager _characterManager;
+        [SerializeField]
+        private EnemiesManager _enemiesManager;
+        [SerializeField]
+        private MapsManager _mapsManager;
         
         protected override void OnInitialize()
         {
