@@ -69,9 +69,9 @@ namespace Roguelike.Gameplay.Maps
             _currentMap = null;
         }
         
-        private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
+        private void HandleCharacterCollideDoor(GameEvent gameEvent)
         {
-            if (serviceEvent is CharacterCollideDoorEvent)
+            if (gameEvent is CharacterCollideDoorEvent)
             {
                 MapLayout nextMapLayout = null;
 

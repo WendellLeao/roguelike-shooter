@@ -53,17 +53,17 @@ namespace Roguelike.Gameplay.Enemies
             }
         }
 
-        private void HandleCharacterSpawned(ServiceEvent serviceEvent)
+        private void HandleCharacterSpawned(GameEvent gameEvent)
         {
-            if (serviceEvent is CharacterSpawnedEvent characterSpawnedEvent)
+            if (gameEvent is CharacterSpawnedEvent characterSpawnedEvent)
             {
                 _targetTransform = characterSpawnedEvent.Character.transform;
             }
         }
         
-        private void HandleMapSpawned(ServiceEvent serviceEvent)
+        private void HandleMapSpawned(GameEvent gameEvent)
         {
-            if (serviceEvent is MapSpawnedEvent mapSpawnedEvent)
+            if (gameEvent is MapSpawnedEvent mapSpawnedEvent)
             {
                 MapLayout mapLayout = mapSpawnedEvent.MapLayout;
 
@@ -77,9 +77,9 @@ namespace Roguelike.Gameplay.Enemies
             }
         }
         
-        private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
+        private void HandleCharacterCollideDoor(GameEvent gameEvent)
         {
-            if (serviceEvent is CharacterCollideDoorEvent)
+            if (gameEvent is CharacterCollideDoorEvent)
             {
                 DestroyEnemies();
             }

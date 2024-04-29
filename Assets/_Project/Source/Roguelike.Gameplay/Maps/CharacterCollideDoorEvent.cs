@@ -2,7 +2,7 @@
 
 namespace Roguelike.Gameplay.Maps
 {
-    public sealed class CharacterCollideDoorEvent : ServiceEvent
+    public sealed class CharacterCollideDoorEvent : GameEvent
     {
         public CharacterCollideDoorEvent()
         { }

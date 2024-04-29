@@ -52,7 +52,7 @@ namespace Roguelike.Gameplay.Enemies
             _healthController.Begin();
             _enemyRotation.Begin(_targetTransform);
             
-            _enemyView.Setup();
+            _enemyView.Begin();
             
             _currentWeapon.Begin(owner: this);
 

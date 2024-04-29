@@ -41,7 +41,7 @@ namespace Roguelike.Gameplay.Playing
             _shoot.Begin(inputService, _currentWeapon, _characterView);
             _healthController.Begin();
             
-            _characterView.Setup();
+            _characterView.Begin();
         }
 
         protected override void OnStop()

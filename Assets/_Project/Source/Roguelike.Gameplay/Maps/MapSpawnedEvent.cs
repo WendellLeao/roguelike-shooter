@@ -2,7 +2,7 @@ using Leaosoft.Events;
 
 namespace Roguelike.Gameplay.Maps
 {
-    public sealed class MapSpawnedEvent : ServiceEvent
+    public sealed class MapSpawnedEvent : GameEvent
     {
         private MapLayout _mapLayout;
 

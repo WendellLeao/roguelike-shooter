@@ -2,7 +2,7 @@
 
 namespace Roguelike.Gameplay.Playing
 {
-    public sealed class CharacterSpawnedEvent : ServiceEvent
+    public sealed class CharacterSpawnedEvent : GameEvent
     {
         public Character Character { get; }
         

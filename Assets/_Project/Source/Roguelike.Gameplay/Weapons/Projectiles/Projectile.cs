@@ -49,7 +49,7 @@ namespace Roguelike.Gameplay.Weapons.Projectiles
 
             _poolingService = ServiceLocator.GetService<IPoolingService>();
             
-            _projectileView.Setup();
+            _projectileView.Begin();
         }
 
         protected override void OnStop()

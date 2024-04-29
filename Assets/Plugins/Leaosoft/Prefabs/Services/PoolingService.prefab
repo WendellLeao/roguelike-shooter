@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 918904314965568003}
   - component: {fileID: 918904314965568000}
-  - component: {fileID: -4752456487044820479}
   m_Layer: 0
   m_Name: PoolingService
   m_TagString: Untagged
@@ -49,15 +48,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 503e36284632e854eb71882f2f2374e3, type: 2}
   - {fileID: 11400000, guid: c052960d27e567c42a57c7fca98dcf4a, type: 2}
   - {fileID: 11400000, guid: 8839eb5ce915bd848acd69a351fbcfc0, type: 2}
---- !u!114 &-4752456487044820479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 918904314965568001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 788e1bddb703bb545be42b510826ef44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -50,9 +50,9 @@ namespace Roguelike.Gameplay.Playing
             _character.FixedTick(fixedDeltaTime);
         }
         
-        private void HandleCharacterCollideDoor(ServiceEvent serviceEvent)
+        private void HandleCharacterCollideDoor(GameEvent gameEvent)
         {
-            if (serviceEvent is CharacterCollideDoorEvent)
+            if (gameEvent is CharacterCollideDoorEvent)
             {
                 DestroyCharacter();
 

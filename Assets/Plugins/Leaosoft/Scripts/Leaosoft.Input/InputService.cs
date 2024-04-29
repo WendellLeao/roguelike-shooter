@@ -25,18 +25,20 @@ namespace Leaosoft.Input
         private Vector2 _shoot;
         private bool _pressJump;
 
-        public void RegisterService()
+        protected override void RegisterService()
         {
             ServiceLocator.RegisterService<IInputService>(this);
         }
 
-        public void UnregisterService()
+        protected override void UnregisterService()
         {
-            ServiceLocator.DeregisterService<IInputService>();
+            ServiceLocator.UnregisterService<IInputService>();
         }
 
-        public void Initialize()
+        protected override void OnInitialize()
         {
+            base.OnInitialize();
+            
             _inputs = new Inputs();
 
             _landActions = _inputs.LandMap;
