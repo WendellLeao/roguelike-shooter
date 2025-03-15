@@ -1,5 +1,5 @@
 # Roguelike Shooter
-Unity Game - Roguelike Shooter 2D!
+Roguelike Shooter is a fast-paced action game where you blast through five floors of enemies, with five stages per floor. Fight, upgrade, and adapt as you push toward the final boss. Every run is a fresh challenge—can you survive the chaos?
 
 Devlog: https://youtu.be/T4mpVSwc6bA
 
